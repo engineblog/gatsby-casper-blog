@@ -28,11 +28,19 @@ class About extends Component {
         </p>
         <h2>Suggestions</h2>
         <p>
-          If there&apos;s something you would like to see me post about, or if you want to provide feedback on the content itself, please let me know! I know that I might be posting about Gatsby, while you&apos;re working through issues in Vue. I might make a post about Digital Ocean, but you have a question about Linode.  And that&apos;s okay! Send me an email with the topic you&apos;d like me to cover, and there is a good chance I will write about it. The chances of me writing about a suggested topic depend on my familiarity with the topic, and how long it would take me to resarch. I should have a comments section set up in the future to make suggestions and feedback more streamlined.
+          If there&apos;s something you would like to see me post about, or if you want to provide feedback on the content itself, please 
+          {' '}
+          <a href="mailto:whistle@theengine.tech">let me know!</a>
+          {' '}
+          I know that I might be posting about Gatsby, while you&apos;re working through issues in Vue. I might make a post about Digital Ocean, but you have a question about Linode.  And that&apos;s okay! Send me an email with the topic you&apos;d like me to cover, and there is a good chance I will write about it. The chances of me writing about a suggested topic depend on my familiarity with the topic, and how long it would take me to resarch. I should have a comments section set up in the future to make suggestions and feedback more streamlined.
         </p>
         <h2>Collaboration</h2>
         <p>
-          As of right now, The Engine is a solo endeavor. However, if you feel like you have knowledge that you can share, and it aligns with the type of content here, then I would be glad to feature your post on the blog! If you&apos;re interested, email me your blog post, a quick bio, and any social media links you want to include in the bio.  
+          As of right now, The Engine is a solo endeavor. However, if you feel like you have knowledge that you can share, and it aligns with the type of content here, then I would be glad to feature your post on the blog! If you&apos;re interested, 
+          {' '}
+          <a href="mailto:whistle@theengine.tech">email</a>
+          {' '}
+          me your blog post, a quick bio, and any social media links you want to include in the bio.  
         </p>
       </div>
     );
