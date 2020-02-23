@@ -9,7 +9,7 @@
       "experimentalObjectRestSpread": true
     }
   },
-  "extends": ["airbnb", "prettier"],
+  "extends": ["airbnb", "prettier", "wesbos"],
   "plugins": ["react", "jsx-a11y", "import"],
   "rules": {
     "react/prefer-stateless-function": "off",

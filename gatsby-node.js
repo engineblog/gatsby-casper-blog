@@ -1,38 +1,37 @@
-const path = require("path");
-const _ = require("lodash");
-const fs = require("fs");
-const webpackLodashPlugin = require("lodash-webpack-plugin");
+const path = require('path');
+const _ = require('lodash');
+const fs = require('fs');
+const webpackLodashPlugin = require('lodash-webpack-plugin');
 const {
   createLinkedPages,
-  createPaginationPages
-} = require("gatsby-pagination");
-const siteConfig = require("./data/SiteConfig");
+  createPaginationPages,
+} = require('gatsby-pagination');
+const siteConfig = require('./data/SiteConfig');
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
   let slug;
-  if (node.internal.type === "MarkdownRemark") {
+  if (node.internal.type === 'MarkdownRemark') {
     const fileNode = getNode(node.parent);
     const parsedFilePath = path.parse(fileNode.relativePath);
     if (
-      Object.prototype.hasOwnProperty.call(node, "frontmatter") &&
-      Object.prototype.hasOwnProperty.call(node.frontmatter, "slug")
-
+      Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
+      Object.prototype.hasOwnProperty.call(node.frontmatter, 'slug')
     ) {
       slug = `/${_.kebabCase(node.frontmatter.slug)}`;
     } else if (
-      Object.prototype.hasOwnProperty.call(node, "frontmatter") &&
-      Object.prototype.hasOwnProperty.call(node.frontmatter, "title")
+      Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
+      Object.prototype.hasOwnProperty.call(node.frontmatter, 'title')
     ) {
       slug = `/${_.kebabCase(node.frontmatter.title)}`;
-    } else if (parsedFilePath.name !== "index" && parsedFilePath.dir !== "") {
+    } else if (parsedFilePath.name !== 'index' && parsedFilePath.dir !== '') {
       slug = `/${parsedFilePath.dir}/${parsedFilePath.name}/`;
-    } else if (parsedFilePath.dir === "") {
+    } else if (parsedFilePath.dir === '') {
       slug = `/${parsedFilePath.name}/`;
     } else {
       slug = `/${parsedFilePath.dir}/`;
     }
-    createNodeField({ node, name: "slug", value: slug });
+    createNodeField({ node, name: 'slug', value: slug });
   }
 };
 
@@ -40,11 +39,11 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
-    const indexPage = path.resolve("src/templates/index.jsx");
-    const postPage = path.resolve("src/templates/post.jsx");
-    const tagPage = path.resolve("src/templates/tag.jsx");
-    const categoryPage = path.resolve("src/templates/category.jsx");
-    const authorPage = path.resolve("src/templates/author.jsx");
+    const indexPage = path.resolve('src/templates/index.jsx');
+    const postPage = path.resolve('src/templates/post.jsx');
+    const tagPage = path.resolve('src/templates/tag.jsx');
+    const categoryPage = path.resolve('src/templates/category.jsx');
+    const authorPage = path.resolve('src/templates/author.jsx');
 
     if (
       !fs.existsSync(
@@ -63,7 +62,7 @@ exports.createPages = ({ graphql, actions }) => {
         `
           {
             allMarkdownRemark(
-              filter:{frontmatter:{cover:{ne: null}}}
+              filter: { frontmatter: { cover: { ne: null } } }
               limit: 1000
               sort: { fields: [frontmatter___date], order: DESC }
             ) {
@@ -100,7 +99,7 @@ exports.createPages = ({ graphql, actions }) => {
           createPage,
           edges: result.data.allMarkdownRemark.edges,
           component: indexPage,
-          limit: siteConfig.sitePaginationLimit
+          limit: siteConfig.sitePaginationLimit,
         });
 
         // Creates Posts
@@ -111,10 +110,10 @@ exports.createPages = ({ graphql, actions }) => {
           edgeParser: edge => ({
             path: edge.node.fields.slug,
             context: {
-              slug: edge.node.fields.slug
-            }
+              slug: edge.node.fields.slug,
+            },
           }),
-          circular: true
+          circular: true,
         });
 
         const tagSet = new Set();
@@ -144,7 +143,7 @@ exports.createPages = ({ graphql, actions }) => {
         });
 
         const tagFormatter = tag => route =>
-          `/tags/${_.kebabCase(tag)}/${route !== 1 ? route : ""}`;
+          `/tags/${_.kebabCase(tag)}/${route !== 1 ? route : ''}`;
         const tagList = Array.from(tagSet);
         tagList.forEach(tag => {
           // Creates tag pages
@@ -155,8 +154,8 @@ exports.createPages = ({ graphql, actions }) => {
             pathFormatter: tagFormatter(tag),
             limit: siteConfig.sitePaginationLimit,
             context: {
-              tag
-            }
+              tag,
+            },
           });
         });
 
@@ -166,8 +165,8 @@ exports.createPages = ({ graphql, actions }) => {
             path: `/categories/${_.kebabCase(category)}/`,
             component: categoryPage,
             context: {
-              category
-            }
+              category,
+            },
           });
         });
 
@@ -177,8 +176,8 @@ exports.createPages = ({ graphql, actions }) => {
             path: `/author/${_.kebabCase(author)}/`,
             component: authorPage,
             context: {
-              author
-            }
+              author,
+            },
           });
         });
       })
@@ -186,9 +185,9 @@ exports.createPages = ({ graphql, actions }) => {
   });
 };
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  if (stage === "build-javascript") {
+  if (stage === 'build-javascript') {
     actions.setWebpackConfig({
-      plugins: [webpackLodashPlugin]
+      plugins: [webpackLodashPlugin],
     });
   }
 };
