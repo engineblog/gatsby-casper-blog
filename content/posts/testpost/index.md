@@ -1,5 +1,5 @@
 ---
-title: "Sharif is testing; watch out!"
+title: "Test Post!"
 cover: "https://unsplash.it/1152/300/?random"
 date: "2020-02-09"
 author: sharif
@@ -13,10 +13,14 @@ tags:
 
 ## Accipit alto fecerat mutato centauri haerent dominoque
 
-Lorem markdownum nunc fuerat vulgaris ipse. Profecisse Atridae flumen perit
-huic, non bis, summa retemptat. Praedelassat tollitur parte capiebant lustratum
+Lorem markdownum nunc fuerat vulgaris ipse.
+Profecisse Atridae flumen perit
+huic, non bis, summa retemptat.
+Praedelassat tollitur parte capiebant lustratum
 hominem loco coniuge quota, nec aura. Cum constiterat, animos sic videre dumque
 altus **de vesper** membra blanditiis aethera orgia.
+
+![Testing the image](./old-train.jpg)
 
 ```js
 const why = `Because it's hard!`;
@@ -24,6 +28,8 @@ const harry = spell(`lumos`);
 console.log(`Why? ${why}. That's why!`);
 console.log("what you lookin at, fool?");
 ```
+
+<!-- end -->
 
 ## Supersunt Prothoenora arida moturaque fuerit demissaque aut
 

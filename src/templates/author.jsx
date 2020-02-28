@@ -1,30 +1,30 @@
-import { graphql } from "gatsby";
-import React from "react";
-import Helmet from "react-helmet";
-import PostListing from "../components/PostListing/PostListing";
-import config from "../../data/SiteConfig";
-import Drawer from "../components/Drawer/Drawer";
-import Navigation from "../components/Navigation/Navigation";
-import SiteWrapper from "../components/SiteWrapper/SiteWrapper";
-import MainHeader from "../components/MainHeader/MainHeader";
-import MainNav from "../components/MainNav/MainNav";
-import BlogLogo from "../components/BlogLogo/BlogLogo";
-import MenuButton from "../components/MenuButton/MenuButton";
-import AuthorImage from "../components/AuthorImage/AuthorImage";
-import AuthorProfile from "../components/AuthorProfile/AuthorProfile";
-import AuthorName from "../components/AuthorName/AuthorName";
-import AuthorBio from "../components/AuthorBio/AuthorBio";
-import AuthorMeta from "../components/AuthorMeta/AuthorMeta";
-import AuthorLocation from "../components/AuthorLocation/AuthorLocation";
-import AuthorWebsite from "../components/AuthorWebsite/AuthorWebsite";
-import AuthorStats from "../components/AuthorStats/AuthorStats";
-import Footer from "../components/Footer/Footer";
-import SocialMediaIcons from "../components/SocialMediaIcons/SocialMediaIcons";
-import Layout from "../components/layout";
+import { graphql } from 'gatsby';
+import React from 'react';
+import Helmet from 'react-helmet';
+import PostListing from '../components/PostListing/PostListing';
+import config from '../../data/SiteConfig';
+import Drawer from '../components/Drawer/Drawer';
+import Navigation from '../components/Navigation/Navigation';
+import SiteWrapper from '../components/SiteWrapper/SiteWrapper';
+import MainHeader from '../components/MainHeader/MainHeader';
+import MainNav from '../components/MainNav/MainNav';
+import BlogLogo from '../components/BlogLogo/BlogLogo';
+import MenuButton from '../components/MenuButton/MenuButton';
+import AuthorImage from '../components/AuthorImage/AuthorImage';
+import AuthorProfile from '../components/AuthorProfile/AuthorProfile';
+import AuthorName from '../components/AuthorName/AuthorName';
+import AuthorBio from '../components/AuthorBio/AuthorBio';
+import AuthorMeta from '../components/AuthorMeta/AuthorMeta';
+import AuthorLocation from '../components/AuthorLocation/AuthorLocation';
+import AuthorWebsite from '../components/AuthorWebsite/AuthorWebsite';
+import AuthorStats from '../components/AuthorStats/AuthorStats';
+import Footer from '../components/Footer/Footer';
+import SocialMediaIcons from '../components/SocialMediaIcons/SocialMediaIcons';
+import Layout from '../components/layout';
 
 class AuthorTemplate extends React.Component {
   state = {
-    menuOpen: false
+    menuOpen: false,
   };
 
   handleOnClick = evt => {
@@ -54,7 +54,7 @@ class AuthorTemplate extends React.Component {
     const {
       location,
       data: { allMarkdownRemark, allAuthorsJson },
-      pageContext: { author, cover }
+      pageContext: { author, cover },
     } = this.props;
     console.log(this.props);
     const { menuOpen } = this.state;

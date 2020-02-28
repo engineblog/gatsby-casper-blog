@@ -10,19 +10,24 @@ class About extends Component {
           Being a developer is awesome. It can be challenging at times, but
           that&apos;s part of what makes it awesome. It&apos;s also what turns a
           lot of people away, or makes them give up on it. There have been times
-          where I wonder if I have chosen the right career path because I did
-          not feel like a competent developer. Others seem to pick it up
+          where I wondered if I had chosen the right career path, because I
+          didn't feel like a competent developer. Others seem to pick it up
           quicker, find it easier, and are just plain better at it than me. I
           used to be so intimidated when I heard terms like &quot;API&quot;,
           &quot;Frontend Framework&quot;, or when people would ask me about my
-          &quot;stack&quot;. Googling things would lead me to pages that I
-          didn&apos;t understand, and made me doubt myself even more. The goal
-          of this blog is to eliminate that feeling of intimidation, of
-          inadequacy. I want to provide easy-to-provide solutions to developers
-          who have asked the same questions I have, had the same frustrations
-          I&apos;ve had. I want to show other developers that they can take on
-          any topic, so long as they have some time, a little patience, and a
-          practical approach.
+          &quot;stack&quot;. Googling things would often lead me to pages that I
+          didn&apos;t understand, and made me doubt myself even more.
+          <br />
+          <br />
+          But I kept going, just the same
+        </p>
+        <p>
+          The goal of <i>The Engine</i> is to eliminate that feeling of
+          intimidation, of inadequacy. I want to provide easy-to-follow
+          solutions to developers who have asked the same questions I have, had
+          the same frustrations I&apos;ve had. I want to show other developers
+          that they can take on any problem, so long as they have some time, a
+          little patience, and a practical approach.
           <br />
           <br />
           You too can be <strong>The Engine.</strong>
@@ -54,7 +59,8 @@ class About extends Component {
           <a href="mailto:whistle@theengine.tech">let me know!</a> I know that I
           might be posting about Gatsby, while you&apos;re working through
           issues in Vue. I might make a post about Digital Ocean, but you have a
-          question about Linode. And that&apos;s okay! Send me an email with the
+          question about Linode. And that&apos;s okay!{' '}
+          <a href="mailto:whistle@theengine.tech">Send me an email</a> with the
           topic you&apos;d like me to cover, and there is a good chance I will
           write about it. The chances of me writing about a suggested topic
           depend on my familiarity with the topic, and how long it would take me

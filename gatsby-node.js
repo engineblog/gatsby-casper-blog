@@ -45,11 +45,7 @@ exports.createPages = ({ graphql, actions }) => {
     const categoryPage = path.resolve('src/templates/category.jsx');
     const authorPage = path.resolve('src/templates/author.jsx');
 
-    if (
-      !fs.existsSync(
-        path.resolve(`content/${siteConfig.blogAuthorDir}/authors/`)
-      )
-    ) {
+    if (!fs.existsSync(path.resolve(`content/${siteConfig.blogAuthorDir}/`))) {
       reject(
         new Error(
           "The 'authors' folder is missing within the 'blogAuthorDir' folder."
