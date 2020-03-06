@@ -15,7 +15,7 @@ tags:
 > Determine if the issue is the node version, the package version, or a peer dependency issue;<br /><br />
 > If node version: install/use an older version of node with nvm;<br /><br />
 > If package version: update dependencies in project directory (including devDependencies)<br /><br />
-> If peer dependency: Use yarn
+> If peer dependency: Try yarn
 
 <!-- end -->
 
@@ -34,6 +34,7 @@ I'm not claiming to be an npm expert, but I _can_ say that I've haven't had any 
 [Semantic Versioning](#semantic-versioning)<br />
 [npm update](#update-commands)<br />
 [Managing Node Versions with nvm](#managing-nvm)<br />
+[Peer Dependencies](#peer-dependencies)
 [Still Having Issues?](#issues)
 
 ## The Problem
@@ -69,6 +70,7 @@ The examples here are in the context of installing Gatsby themes, but you can ap
 [Semantic Versioning](#semantic-versioning)<br />
 [npm update](#update-commands)<br />
 [Managing Node Versions with nvm](#managing-nvm)<br />
+[Peer Dependencies](#peer-dependencies)<br />
 [Still Having Issues?](#issues)
 
 Sticking with the Gatsby theme (ahem), we will reproduce both scenarios listed above. It's unlikely that your development environment is identical to mine, so you may not get the same results, but the general concepts still apply.
@@ -141,6 +143,7 @@ In my experience, it is much easier to work with the `package-lock.json` file.
 [Semantic Versioning](#semantic-versioning)<br />
 [npm update](#update-commands)<br />
 [Managing Node Versions with nvm](#managing-nvm)<br />
+[Peer Dependencies](#peer-dependencies)<br />
 [Still Having Issues?](#issues)
 
 Let's take a second to step back and understand what is really going on here. There is a newer version of the package available, but when we install directly from the repo link, it attempts to install an older version. If we were to install sharp with the default `npm install` command (without specifying a version), it would install the latest version. So why are we being "forced" to install an older version?
@@ -174,6 +177,7 @@ We _could_ install the theme using an older version of `node`, but I like the id
 [Semantic Versioning](#semantic-versioning)<br />
 [npm update](#update-commands)<br />
 [Managing Node Versions with nvm](#managing-nvm)<br />
+[Peer Dependencies](#peer-dependencies)<br />
 [Still Having Issues?](#issues)
 
 Now that we have a better understanding of version locking and the purpose of the package lock file, we are better prepared to troubleshoot our [error](#error).
@@ -352,6 +356,7 @@ In the next section, we go over how to handle a situation in which the version o
 [Resolving Dependencies](#resolving-dependencies)<br />
 [Semantic Versioning](#semantic-versioning)<br />
 [npm update](#update-commands)<br />
+[Peer Dependencies](#peer-dependencies)<br />
 [Still Having Issues?](#issues)
 
 To demonstrate the second [scenario](#reasons), we are going to install a [different starter theme](https://www.gatsbyjs.org/starters/greglobinski/gatsby-starter-hero-blog/).
@@ -412,6 +417,51 @@ Hey, we got some instructions! Let's follow them:
 
 Success!
 
+In the next (and last) section, we cover peerDependencies.
+
+<h2 id='peer-dependencies'>Peer Dependencies</h2>
+
+This type of dependency is a bit less common to see, but just as important to understand. These will appear in your `package.json` as `peerDependencies`.
+
+The thing that sets peerDependencies apart from package-level dependencies and devDependencies is the fact that peerDependencies are not installed automatically. Why not?
+
+This is typically seen with plugins that a different version of a package that is already defined at the top-level, but a different version of it. To avoid installing two versions of the same package, the peerDependencies are not installed.
+
+Quite honestly, I don't understand peerDependencies much beyond this point. What I do know is that `yarn` seems to handle them better than npm. Throughout this post, I have tried to provide a base-level understanding of the underlying technologies -- but the point is primarily to get you past your installation issues without just saying "run these commands".
+
+Anyways, `yarn` does pretty much the same thing as `npm`, but in a slightly different way. `npm` waits for one package to be installed before starting to install the next, while `yarn` installs packages in parallel.
+
+Let's look at an example -- another [Gatsby theme](https://www.gatsbyjs.org/starters/seabeams/gatsby-starter-auth-aws-amplify/), surprise!
+
+1. `gatsby new gatsby-starter-auth-aws-amplify https://github.com/ben-siewert/gatsby-starter-auth-aws-amplify`
+2. `cd gatsby-starter-auth-aws-amplify`
+3. Look at the `README` file for the repo and issue the commands specified (listed in following steps)
+4. `npm install -g @aws-amplify/cli`
+5. `amplify configure`
+6. Follow the prompts in your terminal
+7. `amplify init`
+8. `amplify add auth`
+9. `amplify push`
+10. `gatsby develop`
+
+We get the following error:
+
+`Error: Cannot create as TypeComposer the following value: Date.`
+
+[Looking up this error](https://github.com/gatsbyjs/gatsby/issues/13278), it appears to come from conflicting versions of `graphql`. I tried manually installing the required version of `graphql`, but got the same result. However, it appears as if people have had success using `yarn`.
+
+Let's try it!
+
+- `npm install -g yarn`
+- `yarn install`
+- `gatsby develop`
+
+We are able to run the development server this time! My understanding is that because `yarn` installs the packages in parallel, the package dependencies make more sense to our environment.
+
+Again, I am by no means claiming to be an expert on this subject, but I always think it's better to try and understand why something works, instead of just knowing that it works.
+
+I plan on updating this post as I gain a deeper understanding of the package manager. In the meantime, feel free to drop me an email with any questions or corrections you might have.
+
 ## Closing Thoughts
 
 That was a lot to get through, but hopefully you feel a bit more comfortable with npm now. If something didn't quite make sense, or if you think I left something out, [let me know](mailto:whistle@theengine.tech)!
@@ -429,6 +479,7 @@ What a great feeling!
 [Semantic Versioning](#semantic-versioning)<br />
 [npm update](#update-commands)<br />
 [Managing Node Versions with nvm](#managing-nvm)<br />
+[Peer Dependencies](#peer-dependencies)
 
 If the steps above didn't solve your issue, you may want to try the following:
 
