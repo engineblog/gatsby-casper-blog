@@ -1,30 +1,30 @@
-import { graphql } from "gatsby";
-import React from "react";
-import Helmet from "react-helmet";
-import SEO from "../components/SEO/SEO";
-import config from "../../data/SiteConfig";
-import MainHeader from "../components/MainHeader/MainHeader";
-import MainNav from "../components/MainNav/MainNav";
-import BlogLogo from "../components/BlogLogo/BlogLogo";
-import MenuButton from "../components/MenuButton/MenuButton";
-import Drawer from "../components/Drawer/Drawer";
-import Navigation from "../components/Navigation/Navigation";
-import SiteWrapper from "../components/SiteWrapper/SiteWrapper";
-import MainContent from "../components/MainContent/MainContent";
-import PostHeader from "../components/PostHeader/PostHeader";
-import PostFormatting from "../components/PostFormatting/PostFormatting";
-import PostDate from "../components/PostDate/PostDate";
-import PostFooter from "../components/PostFooter/PostFooter";
-import AuthorImage from "../components/AuthorImage/AuthorImage";
-import AuthorInfo from "../components/AuthorInfo/AuthorInfo";
-import PostShare from "../components/PostShare/PostShare";
+import { graphql } from 'gatsby';
+import React from 'react';
+import Helmet from 'react-helmet';
+import SEO from '../components/SEO/SEO';
+import config from '../../data/SiteConfig';
+import MainHeader from '../components/MainHeader/MainHeader';
+import MainNav from '../components/MainNav/MainNav';
+import BlogLogo from '../components/BlogLogo/BlogLogo';
+import MenuButton from '../components/MenuButton/MenuButton';
+import Drawer from '../components/Drawer/Drawer';
+import Navigation from '../components/Navigation/Navigation';
+import SiteWrapper from '../components/SiteWrapper/SiteWrapper';
+import MainContent from '../components/MainContent/MainContent';
+import PostHeader from '../components/PostHeader/PostHeader';
+import PostFormatting from '../components/PostFormatting/PostFormatting';
+import PostDate from '../components/PostDate/PostDate';
+import PostFooter from '../components/PostFooter/PostFooter';
+import AuthorImage from '../components/AuthorImage/AuthorImage';
+import AuthorInfo from '../components/AuthorInfo/AuthorInfo';
+import PostShare from '../components/PostShare/PostShare';
 // import GhostSubscribe from "../components/GhostSubscribe/GhostSubscribe";
-import ReadNext from "../components/ReadNext/ReadNext";
-import PostTags from "../components/PostTags/PostTags";
-import Footer from "../components/Footer/Footer";
-import AuthorModel from "../models/author-model";
+import ReadNext from '../components/ReadNext/ReadNext';
+import PostTags from '../components/PostTags/PostTags';
+import Footer from '../components/Footer/Footer';
+import AuthorModel from '../models/author-model';
 // import Disqus from "../components/Disqus/Disqus";
-import Layout from "../components/layout";
+import Layout from '../components/layout';
 
 function parsePost(post, slug) {
   const result = post;
@@ -41,12 +41,12 @@ const formatReadNext = value => ({
   path: value.fields.slug,
   title: value.frontmatter.title,
   cover: value.frontmatter.cover,
-  excerpt: value.excerpt
+  excerpt: value.excerpt,
 });
 
 class PostTemplate extends React.Component {
   state = {
-    menuOpen: false
+    menuOpen: false,
   };
 
   handleOnClick = evt => {
@@ -76,7 +76,7 @@ class PostTemplate extends React.Component {
     const {
       location,
       data,
-      pageContext: { slug, next, prev }
+      pageContext: { slug, next, prev },
     } = this.props;
     console.log(this.props);
     const { menuOpen } = this.state;
@@ -84,7 +84,7 @@ class PostTemplate extends React.Component {
     const postNode = data.markdownRemark;
     const post = parsePost(postNode.frontmatter, slug);
     const { cover, title, date, author, tags } = post;
-    const className = post.post_class ? post.post_class : "post";
+    const className = post.post_class ? post.post_class : 'post';
     const authorData = AuthorModel.getAuthor(
       data.authors.edges,
       author,
@@ -159,9 +159,7 @@ class PostTemplate extends React.Component {
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!, $next: String, $prev: String) {
-    markdownRemark(
-    fields: { slug: { eq: $slug }  })
-     {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       timeToRead
       excerpt

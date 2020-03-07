@@ -1,3 +1,5 @@
+import styled from 'styled-components';
+
 import React, { Component } from 'react';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
@@ -15,6 +17,10 @@ import PageDescription from '../components/PageDescription/PageDescription';
 import PageTitle from '../components/PageTitle/PageTitle';
 import SiteWrapper from '../components/SiteWrapper/SiteWrapper';
 
+const MainLayout = styled.main`
+  max-width: 80%;
+  margin: 4rem auto;
+`;
 class ResourcesPage extends Component {
   state = {
     menuOpen: false,
@@ -56,7 +62,7 @@ class ResourcesPage extends Component {
             <Helmet title={`Resources | ${config.siteTitle}`} />
             <Navigation config={config} onClose={this.handleOnClose} />
             <SiteWrapper>
-              <div className="about-template">
+              <div className="home-template">
                 <MainHeader cover={config.siteCover}>
                   <MainNav overlay={config.siteCover}>
                     <BlogLogo logo={config.siteLogo} title={config.siteTitle} />
@@ -72,9 +78,9 @@ class ResourcesPage extends Component {
                     </div>
                   </div>
                 </MainHeader>
-                <div className="content inner">
+                <MainLayout>
                   <Resources resourceEdges={resources.edges} />
-                </div>
+                </MainLayout>
               </div>
               <Footer
                 copyright={config.copyright}
