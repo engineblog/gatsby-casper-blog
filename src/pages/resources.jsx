@@ -56,7 +56,7 @@ class ResourcesPage extends Component {
             <Helmet title={`Resources | ${config.siteTitle}`} />
             <Navigation config={config} onClose={this.handleOnClose} />
             <SiteWrapper>
-              <div className="about-template">
+              <div className="home-template">
                 <MainHeader cover={config.siteCover}>
                   <MainNav overlay={config.siteCover}>
                     <BlogLogo logo={config.siteLogo} title={config.siteTitle} />
@@ -72,7 +72,7 @@ class ResourcesPage extends Component {
                     </div>
                   </div>
                 </MainHeader>
-                <div className="content inner">
+                <div className="post">
                   <Resources resourceEdges={resources.edges} />
                 </div>
               </div>

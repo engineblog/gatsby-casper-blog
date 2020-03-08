@@ -1,24 +1,22 @@
-import React, { Component } from "react";
-import Helmet from "react-helmet";
-import About from "../components/About/About";
-import BlogLogo from "../components/BlogLogo/BlogLogo";
-import config from "../../data/SiteConfig";
-import Drawer from "../components/Drawer/Drawer";
-import Footer from "../components/Footer/Footer"
-import Layout from "../components/layout";
-import MainHeader from "../components/MainHeader/MainHeader";
-import MainNav from "../components/MainNav/MainNav";
-import MenuButton from "../components/MenuButton/MenuButton";
-import Navigation from "../components/Navigation/Navigation";
-import PageDescription from "../components/PageDescription/PageDescription"
-import PageTitle from "../components/PageTitle/PageTitle"
-import SiteWrapper from "../components/SiteWrapper/SiteWrapper";
-
+import React, { Component } from 'react';
+import Helmet from 'react-helmet';
+import About from '../components/About/About';
+import BlogLogo from '../components/BlogLogo/BlogLogo';
+import config from '../../data/SiteConfig';
+import Drawer from '../components/Drawer/Drawer';
+import Footer from '../components/Footer/Footer';
+import Layout from '../components/layout';
+import MainHeader from '../components/MainHeader/MainHeader';
+import MainNav from '../components/MainNav/MainNav';
+import MenuButton from '../components/MenuButton/MenuButton';
+import Navigation from '../components/Navigation/Navigation';
+import PageDescription from '../components/PageDescription/PageDescription';
+import PageTitle from '../components/PageTitle/PageTitle';
+import SiteWrapper from '../components/SiteWrapper/SiteWrapper';
 
 class AboutPage extends Component {
-
   state = {
-    menuOpen: false
+    menuOpen: false,
   };
 
   handleOnClick = evt => {
@@ -44,12 +42,8 @@ class AboutPage extends Component {
     this.setState({ menuOpen: false });
   };
 
-
   render() {
-    const {
-      location
-      
-    } = this.props;
+    const { location } = this.props;
     console.log(this.props);
     const { menuOpen } = this.state;
     return (
@@ -67,19 +61,16 @@ class AboutPage extends Component {
                       navigation={config.siteNavigation}
                       onClick={this.handleOnClick}
                     />
-
                   </MainNav>
                   <div className="vertical">
                     <div className="main-header-content inner">
-                      <PageTitle text='About the blog' />
-                      <PageDescription text='Reading is hard, too.' />
+                      <PageTitle text="About the blog" />
+                      <PageDescription text="Reading is hard, too." />
                     </div>
                   </div>
-
                 </MainHeader>
-                <div className="content inner">
+                <div className="post">
                   <About />
-
                 </div>
               </div>
               <Footer
@@ -89,9 +80,7 @@ class AboutPage extends Component {
             </SiteWrapper>
           </div>
         </Drawer>
-        
       </Layout>
-      
     );
   }
 }

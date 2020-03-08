@@ -7,9 +7,7 @@ class Resources extends Component {
 
     return (
       <div>
-        {/* <ul className="resources"> */}
         {resourceEdges.map(({ node }) => (
-          // <li>
           <div>
             <h2 id={node.frontmatter.anchor}>
               <a
@@ -22,9 +20,7 @@ class Resources extends Component {
             </h2>
             <section dangerouslySetInnerHTML={{ __html: node.html }} />
           </div>
-          // </li>
         ))}
-        {/* </ul> */}
       </div>
     );
   }
