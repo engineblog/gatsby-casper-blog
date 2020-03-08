@@ -7,24 +7,24 @@ class Resources extends Component {
 
     return (
       <div>
-        <ul className="resources">
-          {resourceEdges.map(({ node }) => (
-            <li>
-              <div>
-                <h2 id={node.frontmatter.anchor}>
-                  <a
-                    href={node.frontmatter.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {node.frontmatter.title}
-                  </a>
-                </h2>
-                <section dangerouslySetInnerHTML={{ __html: node.html }} />
-              </div>
-            </li>
-          ))}
-        </ul>
+        {/* <ul className="resources"> */}
+        {resourceEdges.map(({ node }) => (
+          // <li>
+          <div>
+            <h2 id={node.frontmatter.anchor}>
+              <a
+                href={node.frontmatter.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {node.frontmatter.title}
+              </a>
+            </h2>
+            <section dangerouslySetInnerHTML={{ __html: node.html }} />
+          </div>
+          // </li>
+        ))}
+        {/* </ul> */}
       </div>
     );
   }
