@@ -64,8 +64,8 @@ class AboutPage extends Component {
                   </MainNav>
                   <div className="vertical">
                     <div className="main-header-content inner">
-                      <PageTitle text="About the blog" />
-                      <PageDescription text="Reading is hard, too." />
+                      <PageTitle text="(About) The Engine" />
+                      <PageDescription text="keep chugging" />
                     </div>
                   </div>
                 </MainHeader>

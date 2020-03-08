@@ -50,11 +50,12 @@ But I as I was going through the other themes, I kept looking back to the ones t
 
 I guess I'm learning npm now.
 
-I started doing some research and found that my installs were failing for one or both of these reasons:
+I started doing some research and found that my installs and/or builds were failing for one or both of these reasons:
 <span id='reasons'></span>
 
-1. A package fails to install correctly due to an outdated dependency
-2. A package fails to install correctly because it requires an older version of node
+1. A package fails to install/run correctly due to an outdated dependency
+2. A package fails to install/run correctly because it requires an older version of node
+3. A [peerDependency](#peer-dependencies) issue
 
 If you've ever run into issues installing packages with npm, you've probably run across similar explanations in your Google searches. But how do you resolve the issues and actually get the packages to install?
 

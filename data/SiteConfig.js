@@ -10,7 +10,7 @@ module.exports = {
   siteUrl: 'https://theengine.tech', // Domain of your website without pathPrefix.
   pathPrefix: '/the-engine', // Prefixes all links. For cases when deployed to example.github.io/gatsby-starter-casper/.
   siteDescription: 'Problem-solving / development blog', // Website description used for RSS feeds/meta description tag.
-  siteCover: '/images/train-landscape.jpg', // Optional, the cover image used in header for home page. e.g: "/images/blog-cover.jpg",
+  siteCover: '/images/hero-background.jpg', // Optional, the cover image used in header for home page. e.g: "/images/blog-cover.jpg",
   siteNavigation: true, // If navigation is enabled the Menu button will be visible
   siteRss: '/rss.xml', // Path to the RSS file.
   siteRssAuthor: 'Sharif Elkassed', // The author name used in the RSS file
