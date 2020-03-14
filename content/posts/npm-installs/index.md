@@ -1,6 +1,6 @@
 ---
-title: "How To Stop Your npm Installs From Failing"
-cover: "https://unsplash.it/1152/300/?random"
+title: "How To Stop Your NPM Installs From Failing"
+cover: "/images/npm-fail.jpg"
 date: "2020-02-27"
 author: sharif
 category: "web development"
@@ -15,7 +15,7 @@ tags:
 > Determine if the issue is the node version, the package version, or a peer dependency issue;<br /><br />
 > If node version: install/use an older version of node with nvm;<br /><br />
 > If package version: update dependencies in project directory (including devDependencies)<br /><br />
-> If peer dependency: Try yarn
+> If peer dependency: Manually install the dependency and/or try yarn
 
 <!-- end -->
 
@@ -25,7 +25,7 @@ If you're on this page, there's a good chance that you are currently struggling 
 
 I'm not claiming to be an npm expert, but I _can_ say that I've haven't had any issues with npm installations since making the discoveries I am about to share.
 
-## Contents
+<h2 id="contents">Contents</h2>
 
 [TL;DR](#top)<br />
 [Managing and Prioritizing Errors](#managing-errors)<br />
@@ -50,7 +50,7 @@ But I as I was going through the other themes, I kept looking back to the ones t
 
 I guess I'm learning npm now.
 
-I started doing some research and found that my installs and/or builds were failing for one or both of these reasons:
+I started doing some research and found that my installs and/or builds were failing for one or more of these reasons:
 <span id='reasons'></span>
 
 1. A package fails to install/run correctly due to an outdated dependency
@@ -65,16 +65,9 @@ The examples here are in the context of installing Gatsby themes, but you can ap
 
 <h2 id='managing-errors'>Managing and Prioritizing Errors</h2>
 
-[TL;DR](#top)<br />
-[Understanding Version Locking](#version-locking)<br />
-[Resolving Dependencies](#resolving-dependencies)<br />
-[Semantic Versioning](#semantic-versioning)<br />
-[npm update](#update-commands)<br />
-[Managing Node Versions with nvm](#managing-nvm)<br />
-[Peer Dependencies](#peer-dependencies)<br />
-[Still Having Issues?](#issues)
+[Jump to Contents](#contents)<br />
 
-Sticking with the Gatsby theme (ahem), we will reproduce both scenarios listed above. It's unlikely that your development environment is identical to mine, so you may not get the same results, but the general concepts still apply.
+Sticking with the Gatsby theme (ahem), we will reproduce the outdated dependency issue listed [above](#reasons). It's unlikely that your development environment is identical to mine, so you may not get the same results, but the general concepts still apply.
 
 Okay, time for some errors!
 
@@ -82,9 +75,9 @@ The first starter [theme](https://www.gatsbyjs.org/starters/baobabKoodaa/blog/) 
 
 `gatsby new blog https://github.com/baobabKoodaa/blog`
 
-Alright, so there are lots of errors in the terminal. What I like to do at this point is paste all of the errors (not the warnings) into a text file. This way, I can write notes on the errors. An added benefit of making notes on the errors is that it prevents me from forgetting which errors I've already looked into.
+Alright, so there are lots of errors in the terminal. What I like to do at this point is paste all of the errors (and warnings) into a text file. This way, I can write notes on the errors. An added benefit of making notes on the errors is that it prevents me from forgetting which errors I've already looked into.
 
-My text file looks like this:
+My text file looks like this (minus the warnings):
 
 ```js
 gyp ERR! build error gyp ERR! stack Error:`make` failed with exit code: 2
@@ -120,9 +113,8 @@ This can be a lot to digest, and it's hard to know where to start. I typically f
 
 1. Start at the bottom (last entry) of the error log
 2. Skip through the more generic messages
-3. Google the first specific error message
-4. If unsuccessful, go to the top of the error log
-5. Repeat steps 2 and 3
+3. Look into the first specific error message
+4. If unsuccessful, go to the next meaningful error message
 
 <p id='error'>Looking through my error log from the bottom, the first specific error I see is:
 
@@ -132,24 +124,20 @@ This can be a lot to digest, and it's hard to know where to start. I typically f
 
 After putting the error into Google, I ended up on [this GitHub issues page](https://github.com/lovell/sharp/issues/1909). I see a comment from `sharp`'s maintainer, saying that <span id='version'>`v0.23.2`</span> supports node 13. That's great and all, but how do we actually use that version?
 
-I could try and install that version of `sharp` explicitly, but then you need to know whether or not to install it as a normal dependency, or a devDependency.
+I could try and install that version of `sharp` explicitly, but if you're not familiar with what exactly the package is used for, then you need to consider:
+
+1. Whether or not to install it as a normal dependency or a devDependency
+2. Whether to install the package locally or globally
 
 In my experience, it is much easier to work with the `package-lock.json` file.
 
 <h2 id='version-locking'>Understanding Version Locking</h2>
 
-[TL;DR](#top)<br />
-[Managing and Prioritizing Errors](#managing-errors)<br />
-[Resolving Dependencies](#resolving-dependencies)<br />
-[Semantic Versioning](#semantic-versioning)<br />
-[npm update](#update-commands)<br />
-[Managing Node Versions with nvm](#managing-nvm)<br />
-[Peer Dependencies](#peer-dependencies)<br />
-[Still Having Issues?](#issues)
+[Jump to Contents](#contents)<br />
 
-Let's take a second to step back and understand what is really going on here. There is a newer version of the package available, but when we install directly from the repo link, it attempts to install an older version. If we were to install sharp with the default `npm install` command (without specifying a version), it would install the latest version. So why are we being "forced" to install an older version?
+Let's take a second to step back and understand what is really going on here. There is a newer version of the package available, but when we install directly from the repo link, it attempts to install an older version. If we were to install sharp with the default `npm install sharp` command (without specifying a version), it would install the latest version. So why are we being "forced" to install an older version?
 
-_Note: I use 'package' and 'library' interchangeably_
+_Note: 'Package' and 'library' are used interchangeably throughout this post_
 
 This is where `package-lock.json` comes into play. This file exists for portability and dependency purposes. To put this in context, let's imagine we are starting our own open source project from scratch. It's a simple project, and only requires two packages to be installed:
 
@@ -158,7 +146,7 @@ This is where `package-lock.json` comes into play. This file exists for portabil
 
 Our project works perfectly with this configuration, until `some-made-up-library` updates to v1.0, which causes `another-fake-library` to stop working. We can solve this problem in our own environment by simply downgrading `some-made-up-library` back to v0.9. This is fine for our individual setup, but what about the other developers that want to utilize our project? We could specify the version requirements in the `README` file, but what if our project had 50 libraries with similar version dependencies? Are we going to list those all out in the `README`? That's no way to live your life!
 
-This is what is known as a _dependency_, since the functionality of one package **depends on** the version of one or more _other_ packages. This is the reason the `package-lock.json` file exists.
+This is what is known as a _dependency_, since the functionality of one package **depends on** the version of one or more _other_ packages. Those other packages can have their own dependencies, which in turn have _their_ own dependencies, etc. This is the reason the `package-lock.json` file exists.
 
 `package-lock.json` specifies the versions to use for each package. This means that when someone clones the repo and runs `npm install`, the versions specified in `package-lock.json` will be installed locally to their system.
 
@@ -166,20 +154,13 @@ At this point, you might be wondering why our installation failed, since there i
 
 Let's think back to the comment from `sharp`'s maintainer: They stated that the new version of `sharp` has been adjusted so that it works with node 13. This implies that `sharp` was originally developed on an older version of node. And since we are competent developers who keep our tools up-to-date, we are using the latest version of node.
 
-So we can conclude that the reason our installation failed is because the creator of the Gatsby theme did not update the repo to account for this new version of node.
+So we can conclude that the reason our installation failed is because the creator of the Gatsby theme did not account for this new version of node, or has not updated the Gatsby theme since the newer version of node was released.
 
 We _could_ install the theme using an older version of `node`, but I like the idea of using a newer version of `sharp` a little better; we do this in the next section.
 
 <h2 id='resolving-dependencies'>Resolving Dependencies</h2>
 
-[TL;DR](#top)<br />
-[Managing and Prioritizing Errors](#managing-errors)<br />
-[Understanding Version Locking](#version-locking)<br />
-[Semantic Versioning](#semantic-versioning)<br />
-[npm update](#update-commands)<br />
-[Managing Node Versions with nvm](#managing-nvm)<br />
-[Peer Dependencies](#peer-dependencies)<br />
-[Still Having Issues?](#issues)
+[Jump to Contents](#contents)<br />
 
 Now that we have a better understanding of version locking and the purpose of the package lock file, we are better prepared to troubleshoot our [error](#error).
 
@@ -244,25 +225,7 @@ The idea of going through and manually updating the version multiple times doesn
 
 Luckily, we don't have to do that! We can actually run some commands that will modify the `package-lock.json` file for us!
 
-Before we get into the commands, it's a good idea to understand some of the file's syntax:
-
-<h4 id='semantic-versioning'>Semantic Versioning</h4>
-
-Semantic Versioning is the syntax for the version numbers you see in `package.json` and `package-lock.json`. There are three numbers, separated by decimals. For example: `1.8.4`
-
-- `1` is the major version
-- `8` is the minor version
-- `4` is the patch version
-
-You can also use prefixes on the versions: `^` or `~`
-
-- `^` allows the minor and patch versions to be updated, keeping the major version the same
-- `~` allows the patch version to be updated, keeping the major and minor versions the same
-- Omitting a prefix will use the exact version only (no updates)
-
-It is generally safe to update minor and patch versions without breaking dependencies, but not major versions.
-
-You may run across responses online that suggest deleting the `package-lock.json` file to get around issues like the one we are working on here, but there are some issues with that approach. For example, there could be exact versions required for a reason. Maybe updating those packages won't cause the install to fail, but introduces a security vulnerability instead.
+Before we get into the commands, it's a good idea to understand some of the file's syntax, as well as the different types of dependencies. This post is already pretty lengthy, so I broke that part out into <a target='_blank' href="/what-you-need-to-know-about-npm-dependencies">another post</a>.
 
 With that out of the way, we're ready to run our commands!
 
@@ -275,11 +238,11 @@ With that out of the way, we're ready to run our commands!
 
 [Managing Node Versions with nvm](#managing-nvm)<br />
 
-- `npm update`: Looks for packages with `^` or `~` and updates them to to latest minor or patch version, respectively
+- `npm update`: Looks for dependencies with `^` or `~` and updates them to to latest minor or patch version, respectively. You can also run `npm update <packagename>` to update one package in particular.
 
-- `npm update -D`: Does the same thing as `npm update`, but also includes devDependencies in the update
+- `npm update -D`: Does the same thing as `npm update`, but also includes devDependencies in the update. No worries if you don't know what devDependencies are; I'll get into them shortly.
 
-So let's see what happens when we run `npm update`.
+So let's see what happens when we run `npm update`. I decided to "yolo update" here and just update all eligible packages. We don't have anything working, therefore we don't have anything to break.
 
 We get the following error:
 
@@ -309,7 +272,7 @@ So we can go ahead and run `npm audit fix`.
 
 While that's running, we can check out our package files to see what changed:
 
-In `package-lock.json`, `sharp-cli`, which is marked as a devDependency (`"dev":true`) now `"requires"` version `0.23.3` instead of `0.22.1`.
+In `package-lock.json`, `sharp-cli`, which is marked as a devDependency (`"dev":true`) now `"requires"` version `0.23.3` of`sharp` instead of `0.22.1`.
 
 This happened because:
 
@@ -341,8 +304,17 @@ We see that the error is pointing to the `node_modules/webp-bin` folder. What pr
 To fix it, we can "refresh" the `node_modules` folder. The rest of the commands should now work because we have resolved our dependencies.
 
 1. `rm -rf node_modules/`
+
+Deletes the node_modules folder in our project
+
 2. `npm install`
+
+Installs all packages according to the conventions in our newly-updated `package.json` and `package-lock.json` files
+
 3. `npm audit fix`
+
+Automatically fixes any vulnerabilities introduced by the packages installed in step 2
+
 4. `gatsby develop`
 
 Phew! We made it!
@@ -351,14 +323,7 @@ In the next section, we go over how to handle a situation in which the version o
 
 <h2 id='managing-nvm'>Managing Node Versions with nvm</h2>
 
-[TL;DR](#top)<br />
-[Managing and Prioritizing Errors](#managing-errors)<br />
-[Understanding Version Locking](#version-locking)<br />
-[Resolving Dependencies](#resolving-dependencies)<br />
-[Semantic Versioning](#semantic-versioning)<br />
-[npm update](#update-commands)<br />
-[Peer Dependencies](#peer-dependencies)<br />
-[Still Having Issues?](#issues)
+[Jump to Contents](#contents)<br />
 
 To demonstrate the second [scenario](#reasons), we are going to install a [different starter theme](https://www.gatsbyjs.org/starters/greglobinski/gatsby-starter-hero-blog/).
 
@@ -371,7 +336,7 @@ I did not get an error when installing this theme, but if you did, you can refer
 
 Although I did not get an error, there was an issue when running `gatsby develop`: The build always gets stuck on the 'generating image thumbnails` step, no matter how many times retry the command.
 
-To investigate the issue, I:
+To investigate the issue, I
 
 1. Went to the theme's [repo](https://github.com/greglobinski/gatsby-starter-hero-blog).
 
@@ -416,19 +381,7 @@ Hey, we got some instructions! Let's follow them:
 3. `npm audit fix`
 4. `gatsby develop`
 
-Success!
-
-In the next (and last) section, we cover peerDependencies.
-
-<h2 id='peer-dependencies'>Peer Dependencies</h2>
-
-This type of dependency is a bit less common to see, but just as important to understand. These will appear in your `package.json` as `peerDependencies`.
-
-The thing that sets peerDependencies apart from package-level dependencies and devDependencies is the fact that peerDependencies are not installed automatically. Why not?
-
-This is typically seen with plugins that a different version of a package that is already defined at the top-level, but a different version of it. To avoid installing two versions of the same package, the peerDependencies are not installed.
-
-Quite honestly, I don't understand peerDependencies much beyond this point. What I do know is that `yarn` seems to handle them better than npm. Throughout this post, I have tried to provide a base-level understanding of the underlying technologies -- but the point is primarily to get you past your installation issues without just saying "run these commands".
+<h2 id='yarn'>Yarn</h2>
 
 Anyways, `yarn` does pretty much the same thing as `npm`, but in a slightly different way. `npm` waits for one package to be installed before starting to install the next, while `yarn` installs packages in parallel.
 
@@ -473,14 +426,7 @@ What a great feeling!
 
 <h2 id='issues'>Still Having Issues?</h2>
 
-[TL;DR](#top)<br />
-[Managing and Prioritizing Errors](#managing-errors)<br />
-[Understanding Version Locking](#version-locking)<br />
-[Resolving Dependencies](#resolving-dependencies)<br />
-[Semantic Versioning](#semantic-versioning)<br />
-[npm update](#update-commands)<br />
-[Managing Node Versions with nvm](#managing-nvm)<br />
-[Peer Dependencies](#peer-dependencies)
+[Jump to Contents](#contents)<br />
 
 If the steps above didn't solve your issue, you may want to try the following:
 

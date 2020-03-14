@@ -54,8 +54,8 @@ class AboutPage extends Component {
             <Navigation config={config} onClose={this.handleOnClose} />
             <SiteWrapper>
               <div className="about-template">
-                <MainHeader cover={config.siteCover}>
-                  <MainNav overlay={config.siteCover}>
+                <MainHeader cover={config.aboutCover}>
+                  <MainNav overlay={config.aboutCover}>
                     <BlogLogo logo={config.siteLogo} title={config.siteTitle} />
                     <MenuButton
                       navigation={config.siteNavigation}
@@ -64,8 +64,8 @@ class AboutPage extends Component {
                   </MainNav>
                   <div className="vertical">
                     <div className="main-header-content inner">
-                      <PageTitle text="(About) The Engine" />
-                      <PageDescription text="keep chugging" />
+                      <PageTitle text="[About] The Engine" />
+                      <PageDescription text="keep chugging>_" />
                     </div>
                   </div>
                 </MainHeader>

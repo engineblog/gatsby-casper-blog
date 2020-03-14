@@ -13,10 +13,12 @@ class About extends Component {
           where I wondered if I had chosen the right career path, because I
           didn't feel like a competent developer. Others seem to pick it up
           quicker, find it easier, and are just plain better at it than me. I
-          used to be so intimidated when I heard terms like &quot;API&quot;,
-          &quot;Frontend Framework&quot;, or when people would ask me about my
-          &quot;stack&quot;. Googling things would often lead me to pages that I
-          didn&apos;t understand, and made me doubt myself even more.
+          used to be so intimidated when I heard terms like <i>API</i>&nbsp; and
+          &nbsp;
+          <i>Frontend Framework</i>, or when people would ask me about my
+          preferred &quot;stack&quot;. Googling things would often lead me to
+          pages that I didn&apos;t understand, and made me doubt myself even
+          more.
           <br />
           <br />
           But I kept going, just the same

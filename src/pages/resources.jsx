@@ -57,8 +57,8 @@ class ResourcesPage extends Component {
             <Navigation config={config} onClose={this.handleOnClose} />
             <SiteWrapper>
               <div className="home-template">
-                <MainHeader cover={config.siteCover}>
-                  <MainNav overlay={config.siteCover}>
+                <MainHeader cover={config.resourceCover}>
+                  <MainNav overlay={config.resourceCover}>
                     <BlogLogo logo={config.siteLogo} title={config.siteTitle} />
                     <MenuButton
                       navigation={config.siteNavigation}
