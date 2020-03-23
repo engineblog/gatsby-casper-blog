@@ -69,6 +69,7 @@ exports.createPages = ({ graphql, actions }) => {
                     title
                     tags
                     cover
+                    credit
                     date
                     category
                     author

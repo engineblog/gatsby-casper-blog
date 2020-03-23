@@ -20,7 +20,9 @@ function GetNavList(config) {
         primaryText: link.label,
         // LeftIcon: <FontIcon forceSize iconClassName={link.iconClassName} />,
         component: "a",
-        href: link.url
+        href: link.url,
+        target: "blank",
+        rel: "noopener noreferrer"
       });
     });
   }

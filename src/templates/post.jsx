@@ -11,6 +11,7 @@ import Drawer from "../components/Drawer/Drawer";
 import Navigation from "../components/Navigation/Navigation";
 import SiteWrapper from "../components/SiteWrapper/SiteWrapper";
 import MainContent from "../components/MainContent/MainContent";
+import PhotoCredit from "../components/PhotoCredit/PhotoCredit";
 import PostHeader from "../components/PostHeader/PostHeader";
 import PostFormatting from "../components/PostFormatting/PostFormatting";
 import PostDate from "../components/PostDate/PostDate";
@@ -78,12 +79,11 @@ class PostTemplate extends React.Component {
       data,
       pageContext: { slug, next, prev }
     } = this.props;
-    console.log(this.props);
     const { menuOpen } = this.state;
 
     const postNode = data.markdownRemark;
     const post = parsePost(postNode.frontmatter, slug);
-    const { cover, title, date, author, tags } = post;
+    const { cover, credit, title, date, author, tags } = post;
     const className = post.post_class ? post.post_class : "post";
     const authorData = AuthorModel.getAuthor(
       data.authors.edges,
@@ -121,6 +121,7 @@ class PostTemplate extends React.Component {
                   <section className="post-meta">
                     <PostDate date={date} />
                     <PostTags prefix=" on " tags={tags} />
+                    <PhotoCredit credit={credit} />
                   </section>
                 </PostHeader>
 
@@ -167,6 +168,7 @@ export const pageQuery = graphql`
       excerpt
       frontmatter {
         title
+        credit
         cover
         date
         category

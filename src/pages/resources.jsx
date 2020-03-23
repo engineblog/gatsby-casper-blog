@@ -13,6 +13,7 @@ import MenuButton from '../components/MenuButton/MenuButton';
 import Navigation from '../components/Navigation/Navigation';
 import PageDescription from '../components/PageDescription/PageDescription';
 import PageTitle from '../components/PageTitle/PageTitle';
+import PhotoCredit from '../components/PhotoCredit/PhotoCredit';
 import SiteWrapper from '../components/SiteWrapper/SiteWrapper';
 
 class ResourcesPage extends Component {

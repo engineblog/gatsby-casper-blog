@@ -1,6 +1,8 @@
 ---
 title: "Why Googling Errors Is Not Always The Best Approach"
-cover: "https://images.unsplash.com/photo-1555861496-0666c8981751?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+slug: "googling-errors"
+cover: "/images/icecream.jpg"
+credit: "Sarah Kilian on Unsplash"
 date: "2020-02-24"
 author: sharif
 category: "web development"
@@ -46,7 +48,7 @@ Here we go!
 
 ## The Error
 
-![the error](./the-error.PNG)
+![TypeError: Cannot read property 'name' of undefined](./the-error.PNG)
 
 This is why I like to make small changes and then check my work. Granted, Gatsby will yell at you in the terminal as well, but I still believe it's a good practice, since not all platforms afford you that luxury. My point is that if I had made additional changes before checking the browser, the problem would have become instantly more complex. At this point, I know with 100% confidence that this error is the direct cause of the filename I changed.
 
