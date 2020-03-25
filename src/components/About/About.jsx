@@ -7,12 +7,14 @@ class About extends Component {
       <div className="about">
         <h1>Mission</h1>
         <p>
-          Being a developer is awesome. It can be challenging at times, but
+          Being a developer is awesome. <br /><br />
+          
+          It can be challenging at times, but
           that&apos;s part of what makes it awesome. It&apos;s also what turns a
           lot of people away, or makes them give up on it. There have been times
           where I wondered if I had chosen the right career path, because I
           didn't feel like a competent developer. Others seem to pick it up
-          quicker, find it easier, and are just plain better at it than me. I
+          quicker, find it easier, and are just plain better at it than me. <br /><br />I
           used to be so intimidated when I heard terms like <i>API</i>&nbsp; and
           &nbsp;
           <i>Frontend Framework</i>, or when people would ask me about my
@@ -40,12 +42,12 @@ class About extends Component {
           learning, approaches, mindsets, and experiences. Another way to say
           that is: I post about things that gave me trouble, but I eventually
           figured out. Specifically, I post about how I figured it out, and
-          break it down in hopes that anyone reading doesn&apos;t have to.
+          break it down in hopes that anyone reading doesn&apos;t have to.<br /><br />
           Expect to see detailed code examples with detailed explanations. Some
           content may be influenced by opinion, but that opinion is influenced
           by experience. I do not claim to know the best way to do something, or
           the best tools to use. I am simply sharing what I have found works for
-          me, what does not, and why. That being said, I aim to provide answers
+          me, what does not, and why.<br /><br/> That being said, I aim to provide answers
           to the questions that other developers might have, while also
           encouraging a positive, productive mindset. I want my posts to bring
           understanding, and fill in the gaps that I know I needed to fill to
@@ -79,6 +81,7 @@ class About extends Component {
           quick bio, and any social media links you want to include in the bio.
         </p>
       </div>
+      
     );
   }
 }

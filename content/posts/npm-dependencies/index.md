@@ -20,7 +20,7 @@ This post is meant to be a primer to answer any questions you might have when re
 
 ## package.json
 
-This file is the "meat and potatoes" of any node package. This is the file that gets created when you start a node project with `npm init`. When you install packages in your project, the `package.json` file is updated, adding the package (along with its version) to the file.
+This file serves as the backbone for node packages. This is the file that gets created when you start a node project with `npm init`. When you install packages in your project, the `package.json` file is updated, adding the package (along with its version) to the file.
 
 This file contains a project's "top level" dependencies, and is the driving force behind which packages get installed. This is why running `npm install` won't work unless there is a `package.json` file present.
 

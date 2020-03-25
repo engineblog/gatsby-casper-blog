@@ -8,7 +8,7 @@ module.exports = {
   siteLogo:
     'https://haysclark.github.io/gatsby-starter-casper/logos/logo-1024.png', // Logo used for SEO and manifest. e.g. "/logos/logo-1024.png",
   siteUrl: 'https://theengine.tech', // Domain of your website without pathPrefix.
-  pathPrefix: '/the-engine', // Prefixes all links. For cases when deployed to example.github.io/gatsby-starter-casper/.
+  pathPrefix: '', // Prefixes all links. For cases when deployed to example.github.io/gatsby-starter-casper/.
   siteDescription: 'Problem-solving / development blog', // Website description used for RSS feeds/meta description tag.
   siteCover: '/images/train-landscape.jpg', // Optional, the cover image used in header for home page. e.g: "/images/blog-cover.jpg",
   resourceCover: '/images/cover.jpg',
