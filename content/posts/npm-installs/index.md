@@ -18,7 +18,7 @@ tags:
 > Understand package.json, lock files, and the various types of dependencies;<br /><br />
 > Know what to look for in the error log;<br /><br />
 > Look up issues about the specific package/theme/library that is failing;<br /><br />
-> Try manually installing the failing package without specifying a version;<br /><br />
+> Try manually installing the failing package without specifying a version (assuming a lock file is present);<br /><br />
 
 <!-- end -->
 
@@ -34,7 +34,7 @@ When I started this blog, I reached for a Gatsby theme, and was reminded of my r
 
 I still don't know _nearly_ everything about npm and dependencies -- but I now have enough knowledge to get any package to install / build with minimal warnings and vulnerabilities. My hope is that this post and its <a target='_blank' href="/npm-dependencies">supplementary post</a> will allow you to say the same.
 
-This post doesn't go into npm fundamentals; I wrote <a target='_blank' href="/npm-dependencies">another post</a> for that. What this post does include is **solutions for five different scenarios** that might cause you issues with npm installations and builds. These scenarios are not exhaustive, but they are the ones I found most useful in my research.
+This post doesn't go into npm fundamentals; That's what the <a target='_blank' href="/npm-dependencies">supplementary post</a> is for. What this post does include is **solutions for five different scenarios** that might cause you issues with npm installations and builds. These scenarios are not exhaustive, but they are the ones I found most useful in my research.
 
 All of the scenarios deal with Gatsby themes, but the concepts all apply to npm in general.
 
@@ -66,6 +66,8 @@ Before getting started, you'll want to make sure that you have the proper build 
 
 **Note:** If you're using WSL, skip the Windows instructions and use the Linux instructions instead.
 
+Let's get to it!
+
 ## When the Initial Install Fails
 
 [Contents](/npm-installs#contents)
@@ -88,7 +90,7 @@ Before beginning to troubleshoot, we need to move into the directory where the t
 
 `cd gatsby-v2-starter-casper`
 
-Sometimes we can manually install the "problem package" without specifying a version; the idea is to update the package to the latest semver-compliant version. In this case, that would look like:
+Sometimes we can manually install the "problem package" without specifying a version (assuming a lockfile is present); the idea is to update the package to the latest semver-compliant version. In this case, that would look like:
 
 `npm install sharp`
 
@@ -108,7 +110,7 @@ If we look to our `package-lock.json` file and search for "gatsby-plugin-sharp",
       },
 ```
 
-Since we now know that `sharp` is not a **direct** dependency of our project, we can start looking into `gatsby-plugin-sharp`:
+Since we now know that `sharp` is not a **direct** dependency of our project (because it does not appear in `package.json`), we can start looking into `gatsby-plugin-sharp`:
 
 https://www.gatsbyjs.org/packages/gatsby-plugin-sharp/
 
@@ -132,7 +134,7 @@ Per the Gatsby docs, we update them like so:
 
 `npm install gatsby-plugin-sharp gatsby-plugin-manifest`
 
-This install completes successfully, and now we can attempt to install the remaining packages:
+This install completes successfully, and now we can attempt to install the remaining packages (because the installation was interrupted when `sharp` failed):
 
 `npm install`
 
@@ -154,7 +156,7 @@ The troubleshooting tips and strategies covered above don't always solve the iss
 npm ERR! Failed at the grpc@1.23.3 install script.
 ```
 
-My first thought is to install `grpc` explicitly, since that seems to work most of the time.
+My first thought is to install `grpc` explicitly, since manually installing the "problem package" seems to work a lot of the time.
 
 `cd firebase-authentication`
 
@@ -230,6 +232,21 @@ found 1261 vulnerabilities (694 low, 17 moderate, 548 high, 2 critical)
 run `npm audit fix` to fix them, or `npm audit` for details
 ```
 
+<!-- Before moving forward, let's also take note of which peer dependency warnings we received during the install:
+
+```js
+npm WARN ajv-keywords@3.2.0 requires a peer of ajv@^6.0.0 but none is installed. You must install peer dependencies yourself.
+npm WARN bootstrap@4.2.1 requires a peer of jquery@1.9.1 - 3 but none is installed. You must install peer dependencies yourself.
+npm WARN bootstrap@4.2.1 requires a peer of popper.js@^1.14.6 but none is installed. You must install peer dependencies yourself.
+npm WARN eslint-plugin-graphql@2.1.1 requires a peer of graphql@^0.12.0 || ^0.13.0 but none is installed. You must install peer dependencies yourself.
+npm WARN express-graphql@0.6.12 requires a peer of graphql@^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 but none is installed. You must install peer dependencies
+yourself.
+npm WARN extract-text-webpack-plugin@1.0.1 requires a peer of webpack@^1.9.11 but none is installed. You must install peer dependencies yourself.
+npm WARN gatsby-plugin-postcss-sass@1.0.22 requires a peer of gatsby@^1.0.0 but none is installed. You must install peer dependencies yourself.
+npm WARN graphql-tools@3.1.1 requires a peer of graphql@^0.13.0 but none is installed. You must install peer dependencies yourself.
+npm WARN sass-loader@4.1.1 requires a peer of webpack@^2 || ^2.2.0-rc.0 || ^2.1.0-beta || ^1.12.6 but none is installed. You must install peer dependencies yourself.
+``` -->
+
 For the sake of demonstration, let's check if we can run the development server before fixing the vulnerabilities:
 
 `gatsby develop`
@@ -248,11 +265,137 @@ Now to kill the dev server and resolve the vulnerabilities:
 
 `npm audit fix`
 
-When we run `gatsby develop` now, we get a big fat error!
+<!-- Again, before moving forward, let's take note of what has changed in our peer dependency warnings:
 
-Before analyzing the error message, we should attempt to take care of our peer dependencies, to see if that resolves the issue. Let's go through the warnings one by one.
+```js
+npm WARN sass-loader@4.1.1 requires a peer of webpack@^2 || ^2.2.0-rc.0 || ^2.1
+.0-beta || ^1.12.6 but none is installed. You must install peer dependencies yo
+urself.
+```
 
-Before installing peer dependencies, I like to check to see if another version of that package is already installed:
+The `sass-loader` warning is new.
+
+```js
+npm WARN bootstrap@4.4.1 requires a peer of jquery@1.9.1 - 3 but none is instal
+led. You must install peer dependencies yourself.
+npm WARN bootstrap@4.4.1 requires a peer of popper.js@^1.16.0 but none is insta
+lled. You must install peer dependencies yourself.
+```
+
+We had the above two warnings before, but now the versions are different.
+
+```js
+npm WARN eslint-config-react-app@5.2.1 requires a peer of eslint@6.x but none i
+s installed. You must install peer dependencies yourself.
+npm WARN tsutils@3.17.1 requires a peer of typescript@>=2.8.0 || >= 3.2.0-dev |
+| >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta
+ || >= 3.7.0-dev || >= 3.7.0-beta but none is installed. You must install peer
+dependencies yourself.
+npm WARN ink@2.7.1 requires a peer of react@>=16.8.0 but none is installed. You
+ must install peer dependencies yourself.
+npm WARN ink-spinner@3.0.1 requires a peer of react@^16.8.2 but none is install
+ed. You must install peer dependencies yourself.
+```
+
+All of these are new warnings. -->
+
+Now, if we run `gatsby develop` now, we get this error:
+
+```js
+  Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+  1. You might have mismatching versions of React and the renderer (such as React DOM)
+  2. You might be breaking the Rules of Hooks
+  3. You might have more than one copy of React in the same app
+  See https://fb.me/react-invalid-hook-call for tips about how to debug and fix
+   this problem.
+```
+
+If we go to the link in the error message, it tells us that we can run `npm ls react` and `npm ls react-dom` to see if we have duplicates.
+
+Neither of these commands return duplicates, but we do get this message:
+
+```js
+├─┬ UNMET PEER DEPENDENCY gatsby@2.20.4
+│ └─┬ gatsby-cli@2.11.1
+│   └── UNMET PEER DEPENDENCY react@16.13.1
+└── react@16.7.0
+
+npm ERR! peer dep missing: gatsby@^1.0.0, required by gatsby-plugin-postcss-sas
+s@1.0.22
+```
+
+Since I've installed this theme many times, I'll save you some trouble and tell you that we've basically bricked this project by running `npm audit fix`.
+
+To demonstrate how to do this without breaking the project, we'll start again with a fresh copy. This time, we'll clone the repo to avoid the initial install failing:
+
+1. `cd ..`
+2. `rm -rf gatsby-react-boilerplate`
+3. `git clone https://github.com/PrototypeInteractive/gatsby-react-boilerplate.git`
+4. `cd gatsby-react-boilerplate`
+5. `npm install node-sass`
+6. `npm install`
+
+This time, instead of running the audit fix, we run:
+
+`npm update -D`
+
+This will update all of our dependencies, including devDependencies. Now, if we run `gatsby develop`, we still get an error, but it's a different one this time:
+
+```js
+ ERROR #98123  WEBPACK
+
+Generating development JavaScript bundle failed
+
+Cannot find module 'webpack/package.json'
+Require stack:
+- /home/idev/.nvm/versions/node/v13.8.0/lib/node_modules/gatsby-cli/lib/index.js
+
+File: src/components/icon/github.icon
+```
+
+Alright, at this point, we need to do something that probably should have been done at the beginning, but I wanted leave it until now so that its importance could be demonstrated.
+
+What we need to do is check the `README` on the [repo](https://github.com/PrototypeInteractive/gatsby-react-boilerplate).
+
+Here, we see that we are instructed to run `npm run dev`, and not `gatsby develop`. If we look at the `package.json` file, we get some more insight:
+
+```json
+"scripts": {
+    ...
+    "dev": "(shx --silent rm -rf public || shx true) && gatsby develop",
+    ...
+  }
+```
+
+`npm run dev`
+
+Except, we still get an error.
+
+This is getting a little hairy. I'm not sure what the exact intent of the `dev` script is, but _do_ I know that deleting both the `public` and `.cache` folders is often a recommended troubleshooting step. The `dev` script is only removing the `public` folder. Perhaps something has changed since this script was written.
+
+Let's see if we can alter the script to remove the `.cache` folder as well:
+
+```json
+"scripts": {
+    ...
+    "dev": "(shx --silent rm -rf public .cache || shx true) && gatsby develop",
+    ...
+  }
+```
+
+`npm run dev`
+
+```
+You can now view gatsby-react-boilerplate in the browser.
+⠀
+  http://localhost:8000/
+```
+
+Now we are able to run the dev server!
+
+But, we still have some warning about our peer dependencies. If we run `npm ls` for some of the packages that are missing peers, we see more errors.
+
+<!-- Before installing peer dependencies, I like to check to see if another version of that package is already installed:
 
 ```js
 npm WARN ajv-keywords@3.2.0 requires a peer of ajv@^6.0.0 but none is installed. You must install peer dependencies yourself.
@@ -304,11 +447,7 @@ SUCCESS bootstrap
   and its peerDeps were installed successfully.
 ```
 
-We still have peer dependency warnings, but we also have the opportunity to run an audit. Let's do that:
-
-`npm audit fix`
-
-The audit completes, and we attempt to deal with the rest of our peer dependency warnings:
+We still have peer dependency warnings, but we also have the opportunity to run an audit. Let's do that: -->
 
 ```js
 npm WARN eslint-config-react-app@5.2.1 requires a peer of eslint@6.x but none is installed. You must install peer dependencies yourself.
@@ -324,13 +463,20 @@ npm WARN eslint-config-react-app@5.2.1 requires a peer of eslint@6.x but none is
 npm ERR! peer dep missing: gatsby@^1.0.0, required by gatsby-plugin-postcss-sass@1.0.22
 ```
 
-This one is a bit different, since we actually get an error from `npm ls`. Let's see what happens if we install the dependency in the warning message:
+Let's see what happens if we install the dependency in the warning message:
 
 `npx install-peerdeps eslint-config-react-app@5.2.1`
 
-But look at what happens. We installed `eslint@6`, but that made `eslint@5` come off, and now we are getting a warning that the older version is missing.
+Look at what happens. We installed `eslint@6`, but that made `eslint@5` fall off, and now we are getting a warning that `eslint@5` is missing:
 
-Another thing that's different about this peer warning is that it is pointing us to an unmet peer for `gatsby@2.19.48`. Why is that? Let's see if we can get some more information:
+```js
+npm WARN @prototype-interactive/eslint-config@0.1.2 requires a peer of eslint@^
+5.0.0 but none is installed. You must install peer dependencies yourself.
+```
+
+Another thing to note about the peer message returned from `npm ls eslint` is that it is pointing us to an unmet peer for `gatsby@2.19.48`.
+
+Why is that? Let's see if we can get some more information:
 
 First, let's run `npm ls gatsby`
 
@@ -350,7 +496,7 @@ Then, if we look at our `package.json` file, we see:
   },
 ```
 
-For some reason, when we ran the audit fix the first time, it broke this dependency. To update all dependencies (including devDependencies), we can run:
+<!-- For some reason, when we ran the audit fix the first time, it broke this dependency. To update all dependencies (including devDependencies), we can run:
 
 `npm update -D`
 
@@ -372,7 +518,7 @@ But when we run this, we get an error:
 npm ERR! notarget No matching version found for typescript@3.7.0.
 ```
 
-It looks like the version of typescript specified is not correct. Not to worry, we can just install the latest applicable version:
+It looks like the version of `typescript` specified in our dependencies is not recognized by `npm`. Not to worry, we can just install the latest applicable version:
 
 `npm install typescript`
 
@@ -396,11 +542,15 @@ We are sort of stuck as far as resolving these dependencies:
 
 - If we install peers for `extract-text-webpack-plugin@1.0.1` or `sass-loader`, we will get a peer warning saying that a later version of `webpack` is required
 
-- If we install peers for `gatsby-plugin-postcss-sass`, then we are in big trouble because we will be missing `gatsby@2`
+- If we install peers for `gatsby-plugin-postcss-sass`, then we are in big trouble because we will be missing `gatsby@2` -->
 
-We could try to delete the `node_modules` folder and try again, but I'll save you some time. I tried it several times, and we end up in the same place we are now.
+Something still seems off about our peer dependencies. If we go down the line and install them with `npx`, we end up with errors when running `gatsby develop`.
 
-What we can do instead is use a package called `yarn`. `yarn` does essentially the same thing as `npm`, but it executes a bit differently. The reason we are going to use it in this scenario is because `yarn` attempts to "flatten" your dependency tree as much as possible.
+We could try to delete the `node_modules` folder and try again, but I'll save you some time; I tried it several times, and we end up in the same place we are now.
+
+What we can do instead is use a package called `yarn`.
+
+`yarn` does essentially the same thing as `npm`, but it executes a bit differently. The reason we are going to use it in this scenario is because `yarn` attempts to "flatten" the dependency tree as much as possible.
 
 In the next section, we cover how to use `yarn` to get around this issue.
 
@@ -423,6 +573,7 @@ So, we are going to delete the project directory from the previous section and s
 - `yarn add node-sass`
 
 2. `yarn install`
+   - If `yarn install` gives you a network error, try `yarn install --network-timeout 1000000`
 
 Upon running `yarn install`, we get this warning:
 
@@ -437,6 +588,16 @@ Since `yarn install` generates its own lockfile (`yarn.lock`), we are clear to r
 Now we can run the following command to check if our dependencies have been met:
 
 `yarn install --check-files`
+
+The warning at the top of the list is:
+
+<!-- ```js
+warning "@typescript-eslint/eslint-plugin > tsutils@3.17.1" has unmet peer depe
+ndency "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >
+= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta".
+``` -->
+
+So we install it with `yarn add typescript`
 
 ```js
 warning " > bootstrap@4.4.1" has unmet peer dependency "jquery@1.9.1 - 3".
@@ -519,7 +680,7 @@ The only warnings left is the one for `@types/react`, which we confirmed was err
 
 We can double check with `yarn install --check-files`
 
-This command returns one new warning:
+The only peer dependency we haven't checked at this point is:
 
 ```js
 warning "svg-sprite-loader > html-webpack-plugin@3.2.0" has unmet peer dependency "webpack@^1.0.0 || ^2.0.0 || ^3.0.0 || ^4.0.0".
@@ -533,59 +694,10 @@ warning "svg-sprite-loader > html-webpack-plugin@3.2.0" has unmet peer dependenc
 
 This dependency seems to be satisfied as well, so now we can run `gatsby develop`
 
-```js
- ERROR #98123  WEBPACK
+We get the `webpack` error again, but we already covered how to deal with this one:
 
-Generating development JavaScript bundle failed
-
-Cannot find module 'webpack/package.json'
-Require stack:
-- /home/idev/.nvm/versions/node/v13.8.0/lib/node_modules/gatsby-cli/lib/index.js
-
-File: src/components/icon/github.icon
-```
-
-Ouch..
-
-Alright, at this point, we need to do something that probably should have been done at the beginning, but I wanted leave it until now so that its importance could be demonstrated.
-
-What we need to do is check the `README` on the [repo](https://github.com/PrototypeInteractive/gatsby-react-boilerplate).
-
-Here, we see that we are instructed to run `npm run dev`, and not `gatsby develop`. If we look at the `package.json` file, we get some more insight:
-
-```json
-"scripts": {
-    ...
-    "dev": "(shx --silent rm -rf public || shx true) && gatsby develop",
-    ...
-  }
-```
-
-`yarn run dev`
-
-Except, we still get an error.
-
-This is getting a little hairy. I'm not sure what the exact intent of the `dev` script is, but _do_ I know that deleting both the `public` and `.cache` folders is often a recommended troubleshooting step. The `dev` script is only removing the `public` folder. Perhaps something has changed since this script was written.
-
-Let's see if we can alter the script to remove the `.cache` folder as well:
-
-```json
-"scripts": {
-    ...
-    "dev": "(shx --silent rm -rf public .cache || shx true) && gatsby develop",
-    ...
-  }
-```
-
-`yarn run dev`
-
-```
-You can now view gatsby-react-boilerplate in the browser.
-⠀
-  http://localhost:8000/
-```
-
-Now we are able to run the dev server!
+1.  Edit the `dev` script in `package.json` to remove the `.cache` folder as well as the `public` folder
+2.  run `yarn run dev`
 
 <!-- Success!
 
