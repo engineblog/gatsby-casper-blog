@@ -8,6 +8,7 @@ To date, the only changes to the original theme are:
 
 - Added 'About' page
 - Added 'Resources' page with markdown support
+- Updated dependencies in lock files
 
 <div align="center">
     <img src="static/logos/logo-1024.png" alt="Logo" width='200px' height='200px'/>
