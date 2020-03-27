@@ -11,13 +11,9 @@ tags:
   - quick tips
 ---
 
-<span id='top'></span>
-
 Setting up an SSH key for your GitHub repo is pretty straightforward, especially if you follow their excellent [documentation](https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh).
 
 This documentation isn't always enough to get you where you need to be, though. There have been a few times where I am still asked for my GitHub password when running a `git push`.
-
-<!-- end -->
 
 ## Here's how to fix it
 
