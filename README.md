@@ -1,15 +1,17 @@
-<div align="center">
-    <img src="static/logos/logo-1024.png" alt="Logo" width='200px' height='200px'/>
-</div>
-
 # The Engine
 
-Everything underneath this section was not authored by me (Sharif). I am leaving the original README in case anyone would like to use this version of the theme.
+Everything underneath this section was not authored by me (Sharif).
+
+I am leaving the original README in case anyone would like to use this version of the theme.
 
 To date, the only changes to the original theme are:
 
 - Added 'About' page
 - Added 'Resources' page with markdown support
+
+<div align="center">
+    <img src="static/logos/logo-1024.png" alt="Logo" width='200px' height='200px'/>
+</div>
 
 # Gatsby Casper Starter
 
