@@ -8,7 +8,9 @@ author: sharif
 category: "web development"
 tags:
   - npm
+  - nvm
   - debugging
+  - gatsby
 ---
 
 <span id='top'></span>
@@ -52,9 +54,9 @@ In each of the sections, there will be a link back to this section to minimize s
 
    - [Using Yarn](/npm-installs#using-yarn)
 
-4. [Dealing with Overly-Restrictive package.json Files](/npm-installs#dealing-with-overly-restrictive-packagejson-files)
+4. [Using 'npm dedupe'](/npm-installs#using-npm-dedupe)
 
-5. [Using 'npm dedupe'](/npm-installs#using-npm-dedupe)
+5. [Dealing with Overly-Restrictive package.json Files](/npm-installs#dealing-with-overly-restrictive-packagejson-files)
 
 [Still Having Issues?](/npm-installs#still-having-issues)
 
@@ -65,6 +67,12 @@ Before getting started, you'll want to make sure that you have the proper build 
 [Setting up your development environment](https://www.gatsbyjs.org/tutorial/part-zero/)
 
 **Note:** If you're using WSL, skip the Windows instructions and use the Linux instructions instead.
+
+If you already have your build tools set up, but want to follow along with the installations in this post, you'll need to install Gatsby:
+
+`npm install -g gatsby-cli`
+
+If the installation fails, refer to the link above.
 
 Let's get to it!
 
@@ -148,6 +156,8 @@ For now, the important thing is that we can run `gatsby develop` and get our the
 
 The troubleshooting tips and strategies covered above don't always solve the issue. One such example can be seen if a dependency was developed using a previous version of `node`, and has not been updated to account for any "breaking changes" introduced in the current `node` version.
 
+> Note: We are using node 13 for this scenario
+
 [The theme in question](https://www.gatsbyjs.org/starters/the-road-to-react-with-firebase/react-gatsby-firebase-authentication/)
 
 `gatsby new firebase-authentication https://github.com/the-road-to-react-with-firebase/react-gatsby-firebase-authentication`
@@ -188,7 +198,7 @@ To use node 10:
 
 This version of node will not be aware of your Gatsby installation, so you will need to run `npm install -g gatsby-cli`.
 
-Now that we are all set up, we need to run the install again, since it initially failed. Since we had to downgrade `node` for the install, it seems likely that there are other outdated definitions in the them. Therefore, we run:
+Now that we are all set up, we need to run the install again, since it initially failed. Since we had to downgrade `node` for the install, it seems likely that there are other outdated definitions in the theme. Therefore, we run:
 
 1. `npm update`
 2. `npm install`
@@ -393,7 +403,7 @@ You can now view gatsby-react-boilerplate in the browser.
 
 Now we are able to run the dev server!
 
-But, we still have some warning about our peer dependencies. If we run `npm ls` for some of the packages that are missing peers, we see more errors.
+But, we still have some warnings about our peer dependencies. If we run `npm ls` for some of the packages that are missing peers, we see more errors.
 
 <!-- Before installing peer dependencies, I like to check to see if another version of that package is already installed:
 
@@ -597,7 +607,7 @@ ndency "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >
 = 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta".
 ``` -->
 
-So we install it with `yarn add typescript`
+<!-- So we install it with `yarn add typescript` -->
 
 ```js
 warning " > bootstrap@4.4.1" has unmet peer dependency "jquery@1.9.1 - 3".
@@ -676,7 +686,7 @@ warning "gatsby-plugin-postcss-sass > sass-loader@4.1.1" has unmet peer dependen
 warning "gatsby-plugin-postcss-sass > gatsby-1-config-extract-plugin > extract-text-webpack-plugin@1.0.1" has unmet peer dependency "webpack@^1.9.11".
 ```
 
-The only warnings left is the one for `@types/react`, which we confirmed was erroneous because an acceptable version was returned when we ran `yarn list @types/react`.
+The only warning left is the one for `@types/react`, which we confirmed was erroneous because an acceptable version was returned when we ran `yarn list @types/react`.
 
 We can double check with `yarn install --check-files`
 
@@ -741,169 +751,9 @@ npm ERR! Failed at the gatsby-react-boilerplate@1.0.0 dev script.
 
 Okay,  -->
 
-## Dealing with Overly-Restrictive package.json Files
+#### Setting a default package manager
 
-[Contents](/npm-installs#contents)
-
-It's not recommended to manually edit dependencies your `package.json` file, since the current version of `npm` automatically updates the file when you perform updates and installs. Sometimes, though, your options are limited by the semver syntax in the file.
-
-[The theme in question](https://www.gatsbyjs.org/starters/DSchau/gatsby-blog-starter-kit/)
-
-`gatsby new gatsby-blog-starter-kit https://github.com/dschau/gatsby-blog-starter-kit`
-
-We get a familiar error message:
-
-```js
-npm ERR! Failed at the sharp@0.21.3 install script.
-```
-
-`cd gatsby-blog-starter-kit`
-
-We follow the `npm ls` steps from the previous section and determine that we need to run:
-
-`npm install gatsby-plugin-manifest gatsby-plugin-sharp`
-
-```js
-npm ERR! Failed at the sharp@0.21.3 install script.
-```
-
-This worked before; why isn't it working now?
-
-A pattern emerges: We check our source of truth -- `package.json`
-
-Alright, so what are we looking for here? Well, first we can look for the packages that we were trying to install:
-
-Our `package.json` shows:
-
-```json
-"dependencies": {
-    ...
-    "gatsby-plugin-manifest": "~2.0.2-beta.3",
-    "gatsby-plugin-sharp": "2.0.0-beta.5",
-    ...
-  },
-```
-
-If we look these packages up in the [npm registry](https://www.npmjs.com/), we can see that both of these packages have already released version 2, and are no longer in beta.
-
-Now it's clear that the versions are being locked down too restrictively in `package.json`.
-
-We can alter the semver to look like this:
-
-```json
-"dependencies": {
-    ...
-    "gatsby": "^2.0.0",
-    "gatsby-plugin-manifest": "^2.0.2",
-    "gatsby-plugin-sharp": "^2.0.0",
-    ...
-  },
-```
-
-Note that we also altered the semver for `gatsby`. This is because the two packages we are trying to install are plugins that "plug in" to `gatsby`. So if we are updating the plugin version, it is likely that we need to update the "host" version as well (i.e. `gatsby`).
-
-Now we try our install again:
-
-`npm install gatsby-plugin-manifest gatsby-plugin-sharp`
-
-This time the installation completes, and we can move onto installing the rest of the packages that failed during the initial install:
-
-`npm install`
-
-The install works this time, but we have some peer warnings to fix.
-
-```js
-npm WARN gatsby@2.0.120 requires a peer of react@^16.4.2 but none is installed. You must install peer dependencies yourself.
-
-npm WARN gatsby@2.0.120 requires a peer of react-dom@^16.4.2 but none is installed. You must install peer dependencies yourself.
-```
-
-Our `package.json`:
-
-```json
-"dependencies": {
-    ...
-    "react": "~16.3.0",
-    "react-dom": "~16.3.0",
-    ...
-  },
-```
-
-We change it to:
-
-```json
-"dependencies": {
-    ...
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
-    ...
-  },
-```
-
-Now we can run `npm install` again to update. Except nothing actually updates. The script runs, and we get the same peer warnings again.
-
-If we run `npm ls react`, we see that `react` was not actually updated according to our semver revision. So we can remove the `node_modules` folder and try again:
-
-1. `rm -rf node_modules`
-2. `npm install`
-3. `npm audit fix`
-
-The install goes through, but we still have some warnings:
-
-```js
-npm WARN gatsby@2.19.49 requires a peer of react@^16.4.2 but none is installed. You must install peer dependencies yourself.
-```
-
-`npm ls react`
-
-```js
-├─┬ gatsby@2.19.49
-│ └─┬ gatsby-cli@2.10.13
-│   └── UNMET PEER DEPENDENCY react@16.13.1
-└── UNMET PEER DEPENDENCY react@16.3.2
-
-npm ERR! peer dep missing: react@^16.4.2, required by gatsby@2.19.49
-npm ERR! peer dep missing: react@>=16.8.0, required by ink@2.7.1
-npm ERR! peer dep missing: react@^16.8.2, required by ink-spinner@3.0.1
-```
-
-`react` did not get installed when we ran `npm install` after deleting `node_modules`. We now install it now as a peer dependency. We want to get the latest version that also satisfies all of the packages that depend on it. If we install peers for `gatsby`, then we get `16.4.2`, which doesn't satisfy the other two packages that depend on `react` (`16.8.0` and `16.8.2`). Since `gatsby` will accept a version of `react` all the way up to `16.9.9`, we can do it this way:
-
-`npx install-peerdeps ink-spinner@3.0.1`
-
-To reiterate, we installed the peers for `ink-spinner` because it required the most up-to-date version of `react`. This works because of the semver syntax specified.
-
-Alright! All of our warnings for `react` missing are gone, and we are left with warnings for `react-dom`:
-
-```js
-npm WARN gatsby@2.19.49 requires a peer of react-dom@^16.4.2 but none is installed. You must install peer dependencies yourself.
-
-npm WARN gatsby-link@2.2.31 requires a peer of react-dom@^16.4.2 but none is installed. You must install peer dependencies yourself.
-```
-
-I am hesitant to install the dependencies for `gatsby`, since it is such a large library, and the potential for duplicates seems likely. Since both `gatsby` and `gatsby-link` are expecting the same version of `react-dom` (`16.4.2`) as a peer, we'll go for `gatsby-link` instead:
-
-`npx install-peerdeps gatsby-link@2.2.31`
-
-Sweet! The only peer warning left is for `typescript`:
-
-```js
-npm WARN tsutils@3.17.1 requires a peer of typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta but none is installed. You must install peer dependencies yourself.
-```
-
-It looks like this peer is defined incorrectly, and we get an error when we try to install it with `npx`. So we can install it directly instead:
-
-`npm install typescript`
-
-Now we have no more peer warnings, and all that's left are warnings for optional dependencies.
-
-We are finally ready to run `gatsby develop` again:
-
-```
-You can now view gatsby-blog-starter-kit in the browser.
-⠀
-  http://localhost:8000/
-```
+To specify which package manager to use with Gatsby, you can alter the file located in `~/.config/gatsby/config.json`
 
 ## Using 'npm dedupe'
 
@@ -1055,6 +905,260 @@ You can now view gatsby-starter-bootstrap-netlify in the browser.
 
 1. Run `gatsby clean`
 1. Run `gatsby develop` again
+
+## Dealing with Overly-Restrictive package.json Files
+
+[Contents](/npm-installs#contents)
+
+It's not recommended to manually edit dependencies your `package.json` file, since the current version of `npm` automatically updates the file when you perform updates and installs. Sometimes, though, your options are limited by the semver syntax in the file.
+
+[The theme in question](https://www.gatsbyjs.org/starters/DSchau/gatsby-blog-starter-kit/)
+
+`gatsby new gatsby-blog-starter-kit https://github.com/dschau/gatsby-blog-starter-kit`
+
+This time, we get a different type of error:
+
+```js
+✖ Error: pngquant failed to build, make sure that libpng-dev is installed
+```
+
+It's a bit hard to tell, but this is actually a tooling issue at the operating system level. In other words, you can't `npm install` this tool.
+
+If we Google `pngquant`, we see that it can be installed with the command:
+
+`sudo apt-get install libpng-dev` (Linux / WSL)
+
+or
+
+`brew install libpng` (macOS)
+
+Once we install `pngquant`, we are ready to try the theme installation again:
+
+`cd gatsby-blog-starter-kit`
+
+`npm install`
+
+We get a familiar error message:
+
+```js
+npm ERR! Failed at the sharp@0.21.3 install script.
+```
+
+We follow the `npm ls` steps from the previous sections of this post, and determine that we need to run:
+
+`npm install gatsby-plugin-manifest gatsby-plugin-sharp`
+
+```js
+npm ERR! Failed at the sharp@0.21.3 install script.
+```
+
+This worked before; why isn't it working now?
+
+A pattern emerges: We check our source of truth -- `package.json`
+
+Alright, so what are we looking for here? Well, first we can look for the packages that we were trying to install:
+
+Our `package.json` shows:
+
+```json
+"dependencies": {
+    ...
+    "gatsby-plugin-manifest": "~2.0.2-beta.3",
+    "gatsby-plugin-sharp": "2.0.0-beta.5",
+    ...
+  },
+```
+
+If we look these packages up in the [npm registry](https://www.npmjs.com/), we can see that both of these packages have already released version 2, and are no longer in beta.
+
+Now it's clear that the versions are being locked down too restrictively in `package.json`.
+
+We can alter the semver to look like this:
+
+```json
+"dependencies": {
+    ...
+    "gatsby": "^2.0.0",
+    "gatsby-plugin-manifest": "^2.0.2",
+    "gatsby-plugin-sharp": "^2.0.0",
+    ...
+  },
+```
+
+Note that we also altered the semver for `gatsby`. This is because the two packages we are trying to install are plugins that "plug in" to `gatsby`. So if we are updating the plugin version, it is likely that we need to update the "host" version as well (i.e. `gatsby`).
+
+Now we try our install again:
+
+`npm install gatsby-plugin-manifest gatsby-plugin-sharp`
+
+This time the installation completes, and we can move onto installing the rest of the packages that failed during the initial install:
+
+`npm install`
+
+But now we get yet another error message that doesn't fit the typical pattern:
+
+```js
+npm ERR! Cannot read property 'match' of undefined
+```
+
+If we Google this error, we can see that the [fix for this error](https://npm.community/t/cannot-read-property-match-of-undefined/203) is to run:
+
+`rm -rf package-lock.json node_modules`
+
+This makes sense, considering we probably goofed something up when we manually edited the `package.json` file.
+
+Now we can run `npm install` once more.
+
+The install works this time, but we have some peer warnings to fix.
+
+```js
+npm WARN gatsby@2.0.120 requires a peer of react@^16.4.2 but none is installed. You must install peer dependencies yourself.
+
+npm WARN gatsby@2.0.120 requires a peer of react-dom@^16.4.2 but none is installed. You must install peer dependencies yourself.
+```
+
+Our `package.json`:
+
+```json
+"dependencies": {
+    ...
+    "react": "~16.3.0",
+    "react-dom": "~16.3.0",
+    ...
+  },
+```
+
+We change it to:
+
+```json
+"dependencies": {
+    ...
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    ...
+  },
+```
+
+Now we can run `npm install` again to update. Except nothing actually updates. The script runs, and we get the same peer warnings again.
+
+If we run `npm ls react`, we see that `react` was not actually updated according to our semver revision. So we can remove the `node_modules` folder and try again:
+
+1. `rm -rf node_modules`
+2. `npm install`
+3. `npm audit fix`
+
+The only warnings left are for optional dependencies, and so we run `gatsby develop`.
+
+We get this error again
+
+```js
+  Error: Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:
+  1. You might have mismatching versions of React and the renderer (such as React DOM)
+  2. You might be breaking the Rules of Hooks
+  3. You might have more than one copy of React in the same app
+  See https://fb.me/react-invalid-hook-call for tips about how to debug and fix
+   this problem.
+```
+
+If we run `npm ls react react-dom`, we see that we a duplicate.
+
+`npm dedupe`
+
+The duplicate was removed, and we run `gatsby develop` again
+
+```js
+ ERROR #98123  WEBPACK
+
+Generating SSR bundle failed
+
+Can't resolve '@babel/runtime/core-js/object/keys' in '/mnt/c/Users/iDev/gatsby-blog-starter
+-kit/node_modules/gatsby-link'
+
+File: node_modules/gatsby-link/index.js
+```
+
+The error is pointing us to `gatsby-link.` If we look in our `package.json`, we see:
+
+```json
+...
+"dependencies":{
+  ...
+  "gatsby-link": "2.0.0-beta.4",
+  ...
+}
+...
+```
+
+We change it to:
+
+```json
+...
+"dependencies":{
+  ...
+  "gatsby-link": "^2.0.0",
+  ...
+}
+...
+```
+
+Then run `npm install`
+
+<!-- The install goes through, but we still have some warnings:
+
+```js
+npm WARN gatsby@2.19.49 requires a peer of react@^16.4.2 but none is installed. You must install peer dependencies yourself.
+```
+
+`npm ls react`
+
+```js
+├─┬ gatsby@2.19.49
+│ └─┬ gatsby-cli@2.10.13
+│   └── UNMET PEER DEPENDENCY react@16.13.1
+└── UNMET PEER DEPENDENCY react@16.3.2
+
+npm ERR! peer dep missing: react@^16.4.2, required by gatsby@2.19.49
+npm ERR! peer dep missing: react@>=16.8.0, required by ink@2.7.1
+npm ERR! peer dep missing: react@^16.8.2, required by ink-spinner@3.0.1
+```
+
+`react` did not get installed when we ran `npm install` after deleting `node_modules`. We now install it now as a peer dependency. We want to get the latest version that also satisfies all of the packages that depend on it. If we install peers for `gatsby`, then we get `16.4.2`, which doesn't satisfy the other two packages that depend on `react` (`16.8.0` and `16.8.2`). Since `gatsby` will accept a version of `react` all the way up to `16.9.9`, we can do it this way:
+
+`npx install-peerdeps ink-spinner@3.0.1`
+
+To reiterate, we installed the peers for `ink-spinner` because it required the most up-to-date version of `react`. This works because of the semver syntax specified.
+
+Alright! All of our warnings for `react` missing are gone, and we are left with warnings for `react-dom`:
+
+```js
+npm WARN gatsby@2.19.49 requires a peer of react-dom@^16.4.2 but none is installed. You must install peer dependencies yourself.
+
+npm WARN gatsby-link@2.2.31 requires a peer of react-dom@^16.4.2 but none is installed. You must install peer dependencies yourself.
+```
+
+I am hesitant to install the dependencies for `gatsby`, since it is such a large library, and the potential for duplicates seems likely. Since both `gatsby` and `gatsby-link` are expecting the same version of `react-dom` (`16.4.2`) as a peer, we'll go for `gatsby-link` instead:
+
+`npx install-peerdeps gatsby-link@2.2.31`
+
+Sweet! The only peer warning left is for `typescript`:
+
+```js
+npm WARN tsutils@3.17.1 requires a peer of typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta but none is installed. You must install peer dependencies yourself.
+```
+
+It looks like this peer is defined incorrectly, and we get an error when we try to install it with `npx`. So we can install it directly instead:
+
+`npm install typescript`
+
+Now we have no more peer warnings, and all that's left are warnings for optional dependencies. -->
+
+Now, `gatsby develop` finally works!
+
+```
+You can now view gatsby-blog-starter-kit in the browser.
+⠀
+  http://localhost:8000/
+```
 
 ## Closing Thoughts
 

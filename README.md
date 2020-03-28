@@ -2,7 +2,7 @@
 
 Everything underneath this section was not authored by me (Sharif).
 
-I am leaving the original README in case anyone would like to use this version of the theme.
+I am leaving the original README in case anyone would like to use this slightly modified version of the theme.
 
 To date, the only changes to the original theme are:
 
