@@ -1,5 +1,5 @@
 ---
-title: "Permission Denied! How To Resolve npm Permission Errors (WSL)"
+title: "Permission Denied! How To Resolve npm Permission Errors"
 slug: "npm-permission-errors"
 cover: "/images/permission-denied.jpg"
 credit: "Jason Blackeye on Unsplash"
@@ -30,7 +30,7 @@ You can install some packages fine, but others give you this error:
 npm ERR! ERROR: EACCESS: permission denied"
 ```
 
-Naturally, you try to install the package again, prefixing the command with `sudo`, but then you get this error:
+Naturally, you try to install the package again, this time prefixing the command with `sudo` -- but then you get this error:
 
 ```
 sudo: npm: command not found
@@ -38,7 +38,7 @@ sudo: npm: command not found
 
 ## The solution
 
-There are a few reasons why you might receive this error. Here, we go over them in a logical order.
+There are a few things you can do to resolve the issue, depending on what the actual issue is. I've listed them out in a logical order:
 
 #### Install Build Tools
 
@@ -62,4 +62,4 @@ If the two steps above do not resolve the issue, you can try the following comma
 
 I hope these suggestions got you where you needed to be!
 
-If not, [let me know on Twitter](https://twitter.com/engineBlog), or [shoot me an email](mailto:whistle@theengine.tech).
+If not, [let me know on Twitter](https://twitter.com/engineBlog), or [shoot me an email](mailto:whistle@theengine.tech), and I'll do my best to help out.
