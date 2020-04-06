@@ -2,7 +2,10 @@
 /* eslint import/extensions:"off" */
 /* eslint global-require:"off" */
 import React from "react";
-import favicon from "./favicon.png";
+// import favicon from "./favicon.png";
+// import favicon from "./trayn8.gif";
+import favicon from "./WhiteTrain.svg";
+
 
 let inlinedStyles = "";
 if (process.env.NODE_ENV === "production") {
