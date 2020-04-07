@@ -1,5 +1,5 @@
 ---
-title: "How to Fix your GitHub SSH Authentication"
+title: "How to Fix Your GitHub SSH Authentication"
 slug: "github-ssh"
 cover: "/images/github-keys.jpg"
 credit: "Florian Berger on Unsplash"
