@@ -176,4 +176,4 @@ In this particular scenario, I felt like I actually gained a deeper understandin
 
 As always, [your feedback](mailto:whistle@theengine.tech) is welcomed, appreciated, and encouraged.
 
-Until next time, keep **chuggin'**!
+Until next time, keep **chugging**!
