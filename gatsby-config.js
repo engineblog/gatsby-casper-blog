@@ -97,19 +97,48 @@ module.exports = {
         background_color: config.backgroundColor,
         theme_color: config.themeColor,
         display: 'minimal-ui',
-        icon: '/logos/train-black.png'
-        // icons: [
-        //   {
-        //     src: '/logos/logo-192x192.png',
-        //     sizes: '192x192',
-        //     type: 'image/png',
-        //   },
-        //   {
-        //     src: '/logos/logo-512x512.png',
-        //     sizes: '512x512',
-        //     type: 'image/png',
-        //   },
-        // ],
+        icons: [
+        {
+          src: '/logos/train-black-48x48.png',
+          sizes: '48x48',
+          type: 'image/png',
+        },
+        {
+          src: '/logos/train-black-72x72.png',
+          sizes: '72x72',
+          type: 'image/png',
+        },
+        {
+          src: '/logos/train-black-96x96.png',
+          sizes: '96x96',
+          type: 'image/png',
+        },
+        {
+          src: '/logos/train-black-144x144.png',
+          sizes: '144x144',
+          type: 'image/png',
+        },
+        {
+          src: '/logos/train-black-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: '/logos/train-black-256x256.png',
+          sizes: '256x256',
+          type: 'image/png',
+        },
+        {
+          src: '/logos/train-black-384x384.png',
+          sizes: '384x384',
+          type: 'image/png',
+        },
+        {
+          src: '/logos/train-black-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        ],
       },
     },
     'gatsby-plugin-offline',
