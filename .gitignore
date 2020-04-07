@@ -58,5 +58,3 @@ public/
 # Bundle stats
 bundle-stats.json
 
-#Redux Cache
-/reduxcache??/
