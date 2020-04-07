@@ -34,6 +34,8 @@ You'll know it if you see it. The page doesn't even seem to fully load before it
 3. `gatsby develop`
 4. `ctrl` + `shift` + `r` to force a new version of the page instead of the cached version
 
+> Note: Most of the time you can get by with just the hard reload
+
 You should be all set!
 
 ### Page hangs, never loads
