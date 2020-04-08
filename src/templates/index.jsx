@@ -97,7 +97,6 @@ class IndexTemplate extends React.Component {
                   <span className="hidden">Scroll Down</span>
                 </Link>
               </MainHeader>
-
               <PaginatedContent
                 page={page}
                 pages={pages}

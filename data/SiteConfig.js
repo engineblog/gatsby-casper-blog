@@ -14,6 +14,7 @@ module.exports = {
   siteCover: '/images/train-landscape.jpg', // Optional, the cover image used in header for home page. e.g: "/images/blog-cover.jpg",
   resourceCover: '/images/cover.jpg',
   aboutCover: '/images/train-tracks.jpg',
+  subscribeCover: '/images/mailboxes.jpg',
   siteNavigation: true, // If navigation is enabled the Menu button will be visible
   siteRss: '/rss.xml', // Path to the RSS file.
   siteRssAuthor: 'Sharif Elkassed', // The author name used in the RSS file

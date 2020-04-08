@@ -6,8 +6,8 @@ class SubscribeButton extends React.Component {
     const { url } = this.props;
     if (url) {
       return (
-        <a className="subscribe-button icon-feed" href={url}>
-          Subscribe
+        <a className="subscribe-button" href={url}>
+          🖂 Subscribe   
         </a>
       );
     }

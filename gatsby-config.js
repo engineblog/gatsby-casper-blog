@@ -19,6 +19,7 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-typescript',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -38,6 +39,12 @@ module.exports = {
       options: {
         name: 'resources',
         path: `${__dirname}/content/${config.resourceDir}`,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-mailchimp',
+      options: {
+        endpoint: '<form action="https://tech.us4.list-manage.com/subscribe/post-json?u=6684049818e4c7bdf80720cfd&amp;id=f3e592b4ba" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>',
       },
     },
     'gatsby-transformer-json',
