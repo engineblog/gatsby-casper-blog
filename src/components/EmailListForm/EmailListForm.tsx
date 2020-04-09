@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./EmailListForm.css";
 import addToMailchimp from "gatsby-plugin-mailchimp";
 
 // import * as styles from "./EmailListForm.module.scss";
@@ -32,13 +33,16 @@ const EmailListForm: React.FunctionComponent<{}> = () => {
       target="_blank"
       noValidate
     >
-      <input
+      {/* <input
         placeholder="Email address"
         name="email"
         type="text"
         onChange={handleEmailChange}
-      />
-      <button type="submit">Subscribe</button>
+      /> */}
+
+      <button type="submit" className="subscribe">
+        Subscribe
+      </button>
     </form>
   );
 };
