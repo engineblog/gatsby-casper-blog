@@ -46,6 +46,51 @@ class SubscribePage extends Component {
         const { location } = this.props;
         console.log(this.props);
         const { menuOpen } = this.state;
+        const postTitle = 'Subscribe!';
+        const postDescription = 'The Engine is doing a giveaway!';
+        const postImage = config.subscribeCover;
+        const realPrefix = config.pathPrefix === "/" ? "" : config.pathPrefix;
+        postImage = config.siteUrl + realPrefix + postImage;
+        const blogURL = config.siteUrl + config.pathPrefix;
+        const schemaOrgJSONLD = [
+            {
+                "@context": "http://schema.org",
+                "@type": "WebSite",
+                url: blogURL,
+                name: postTitle,
+                alternateName: config.siteTitleAlt ? config.siteTitleAlt : ""
+            }
+        ];
+        schemaOrgJSONLD.push([
+            {
+                "@context": "http://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        position: 1,
+                        item: {
+                            "@id": postURL,
+                            name: postTitle,
+                            image: postImage
+                        }
+                    }
+                ]
+            },
+            {
+                "@context": "http://schema.org",
+                "@type": "BlogPosting",
+                url: blogURL,
+                name: postTitle,
+                alternateName: config.siteTitleAlt ? config.siteTitleAlt : "",
+                headline: postTitle,
+                image: {
+                    "@type": "ImageObject",
+                    url: postImage
+                },
+                description: postDescription
+            }
+        ]);
         return (
             <Layout location={location}>
                 <Drawer className="author-template" isOpen={menuOpen}>
@@ -54,14 +99,20 @@ class SubscribePage extends Component {
                         {/* pasting in from SEO.jsx */}
                         <Helmet>
                             {/* General tags */}
-                            <meta name="description" content="Subscribe" />
-                            <meta name="image" content={config.subscribeCover} />
+                            <meta name="description" content={postDescription} />
+                            <meta name="image" content={postImage} />
+
+                            {/* Schema.org tags */}
+                            <script type="application/ld+json">
+                                {JSON.stringify(schemaOrgJSONLD)}
+                            </script>
 
                             {/* OpenGraph tags */}
-                            
-                            <meta property="og:title" content="Subscribe" />
-                            <meta property="og:description" content="The Engine is doing a giveaway!" />
-                            <meta property="og:image" content={config.subscribeCover} />
+                            <meta property="og:url" content={postSEO ? postURL : blogURL} />
+                            {postSEO ? <meta property="og:type" content="article" /> : null}
+                            <meta property="og:title" content={postTitle} />
+                            <meta property="og:description" content={postDescription} />
+                            <meta property="og:image" content={postImage} />
                             <meta
                                 property="fb:app_id"
                                 content={config.siteFBAppID ? config.siteFBAppID : ""}
@@ -73,9 +124,9 @@ class SubscribePage extends Component {
                                 name="twitter:creator"
                                 content={config.userTwitter ? config.userTwitter : ""}
                             />
-                            <meta name="twitter:title" content="Subscribe" />
-                            <meta name="twitter:description" content="The Engine is doing a giveaway!" />
-                            <meta name="twitter:image" content={config.subscribeCover} />
+                            <meta name="twitter:title" content={postTitle} />
+                            <meta name="twitter:description" content={postDescription} />
+                            <meta name="twitter:image" content={postImage} />
                         </Helmet>
                         {/* end SEO.jsx snippet */}
                         <Navigation config={config} onClose={this.handleOnClose} />
