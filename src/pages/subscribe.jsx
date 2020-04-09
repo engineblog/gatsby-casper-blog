@@ -48,10 +48,12 @@ class SubscribePage extends Component {
         const { menuOpen } = this.state;
         const postTitle = 'Subscribe!';
         const postDescription = 'The Engine is doing a giveaway!';
-        const postImage = config.subscribeCover;
+        let postImage = config.subscribeCover;
         const realPrefix = config.pathPrefix === "/" ? "" : config.pathPrefix;
         postImage = config.siteUrl + realPrefix + postImage;
         const blogURL = config.siteUrl + config.pathPrefix;
+        const postPath = '/subscribe';
+        const postURL = config.siteUrl + config.pathPrefix + postPath;
         const schemaOrgJSONLD = [
             {
                 "@context": "http://schema.org",
@@ -108,8 +110,8 @@ class SubscribePage extends Component {
                             </script>
 
                             {/* OpenGraph tags */}
-                            <meta property="og:url" content={postSEO ? postURL : blogURL} />
-                            {postSEO ? <meta property="og:type" content="article" /> : null}
+                            <meta property="og:url" content={postURL} />
+                            <meta property="og:type" content="article" />
                             <meta property="og:title" content={postTitle} />
                             <meta property="og:description" content={postDescription} />
                             <meta property="og:image" content={postImage} />
