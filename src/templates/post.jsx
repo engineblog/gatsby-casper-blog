@@ -26,6 +26,7 @@ import Footer from "../components/Footer/Footer";
 import AuthorModel from "../models/author-model";
 // import Disqus from "../components/Disqus/Disqus";
 import Layout from "../components/layout";
+import HyvorTalk from 'hyvor-talk-react';
 
 function parsePost(post, slug) {
   const result = post;
@@ -141,6 +142,9 @@ class PostTemplate extends React.Component {
                   {/* <GhostSubscribe /> */}
                   {/* <Disqus postNode={postNode} /> */}
                 </PostFooter>
+                {/* comments */}
+                <HyvorTalk.Embed websiteId={426} />
+
               </PostFormatting>
             </MainContent>
             <ReadNext next={getNextData()} prev={getPrevData()} />
