@@ -51,6 +51,21 @@ class SubscribePage extends Component {
                 <Drawer className="author-template" isOpen={menuOpen}>
                     <div className="about-container">
                         <Helmet title={`Subscribe | ${config.siteTitle}`} />
+                        {/* pasting in from SEO.jsx */}
+                        <Helmet>
+                            
+
+                            {/* Twitter Card tags */}
+                            <meta name="twitter:card" content="summary_large_image" />
+                            <meta
+                                name="twitter:creator"
+                                content={config.userTwitter ? config.userTwitter : ""}
+                            />
+                            <meta name="twitter:title" content="subscribe" />
+                            <meta name="twitter:description" content="The Engine is doing a giveaway!" />
+                            <meta name="twitter:image" content={config.subscribeCover} />
+                        </Helmet>
+                        {/* end SEO.jsx snippet */}
                         <Navigation config={config} onClose={this.handleOnClose} />
                         <SiteWrapper>
                             <div className="about-template">
