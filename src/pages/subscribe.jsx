@@ -53,7 +53,19 @@ class SubscribePage extends Component {
                         <Helmet title={`Subscribe | ${config.siteTitle}`} />
                         {/* pasting in from SEO.jsx */}
                         <Helmet>
+                            {/* General tags */}
+                            <meta name="description" content="Subscribe" />
+                            <meta name="image" content={config.subscribeCover} />
+
+                            {/* OpenGraph tags */}
                             
+                            <meta property="og:title" content="Subscribe" />
+                            <meta property="og:description" content="The Engine is doing a giveaway!" />
+                            <meta property="og:image" content={config.subscribeCover} />
+                            <meta
+                                property="fb:app_id"
+                                content={config.siteFBAppID ? config.siteFBAppID : ""}
+                            />
 
                             {/* Twitter Card tags */}
                             <meta name="twitter:card" content="summary_large_image" />
@@ -61,7 +73,7 @@ class SubscribePage extends Component {
                                 name="twitter:creator"
                                 content={config.userTwitter ? config.userTwitter : ""}
                             />
-                            <meta name="twitter:title" content="subscribe" />
+                            <meta name="twitter:title" content="Subscribe" />
                             <meta name="twitter:description" content="The Engine is doing a giveaway!" />
                             <meta name="twitter:image" content={config.subscribeCover} />
                         </Helmet>
