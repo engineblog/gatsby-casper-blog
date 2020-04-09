@@ -183,7 +183,13 @@ class SubscribePage extends Component {
                                        I'm not going to send you an email each time I put up a new post. I'm more likely to send out an email if I start working on a new 'series' of posts. I tend to work slow, so if between 1-3 emails a month sounds reasonable to you, cozy on up to that subscribe button. 
                                     </p>
                                     
-                                    <EmailListForm />
+                                    <EmailListForm /> <br />
+                                    <p>
+                                        Thanks for clicking through. Stay safe.
+                                    </p>
+                                    <p>
+                                        - Sharif
+                                    </p>
                                 </div>
                             </div>
                             <Footer
