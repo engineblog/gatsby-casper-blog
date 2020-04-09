@@ -68,8 +68,9 @@ class About extends Component {
           topic you&apos;d like me to cover, and there is a good chance I will
           write about it. The chances of me writing about a suggested topic
           depend on my familiarity with the topic, and how long it would take me
-          to research. I should have a comments section set up in the future to
-          make suggestions and feedback more streamlined.
+          to research. 
+          <br /><br />
+          The comments section is now active!
         </p>
         <h2>Collaboration</h2>
         <p>
