@@ -14,7 +14,7 @@ My girlfriend got me a Raspberry Pi for Christmas. I just put it together yester
 
 Of course, I got it together, then took it back apart to put the heat sinks on, and then saw the warning card that said not to do that. Oh. that's what the holes in the case are for. Oops.
 
-Since my girlfriend is awesome, the kit had a lot of stuff in it: Boards, LEDs push buttons, an SD card with Raspbian already installed. But I realized I didn't have an external keyboard to plug into it. It was getting late, so I just plugged it in, installed Raspian, and made sure it worked.
+Since my girlfriend is awesome, the kit had a lot of stuff in it: Boards, LEDs, push buttons, an SD card with Raspbian already installed. But I realized I didn't have an external keyboard to plug into it. It was getting late, so I just plugged it in, installed Raspian, and made sure it worked.
 
 This morning, I connected an Ethernet cable from my MSI into the Pi. Hey, that rhymes. I Googled around for ways to use a laptop keyboard with a Pi and found some blog posts and followed the instructions to get the IP address of the Pi.
 
