@@ -33,7 +33,7 @@ Speaking of Sonic Pi, I definitely discovered a lot of cool features with it tod
 
 - With synths, the duration of each sound is the sum of `attack`, `decay`, `sustain`, and `release`
 - Samples differ from synths, in that they have a set duration
-  - This leads to an "auto sustain" effect, or implied `sustain` value
+  - This leads to an 'auto sustain' effect (or implied `sustain` value)
   - You can explicitly set a `sustain` value on a sample to shorten its duration
 - `start` and `finish` options can be set on samples to play a clip of the sample
 - Placing the `finish` option before the `start` option will play the sample backwards
