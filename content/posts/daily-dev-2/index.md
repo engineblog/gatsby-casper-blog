@@ -10,7 +10,7 @@ tags:
   - daily dev
 ---
 
-I got the USB keyboard I needed from my dad's today, plugged it into the Pi, spammed the Shift key during boot, and the recovery menu came right up.
+I got the USB keyboard I needed, plugged it into the Pi, spammed the Shift key during boot, and the recovery menu came right up.
 
 When Raspbian was done installing, Sonic Pi launched no problem. Since I had the keyboard, I didn't have to enable SSH, or mess with any configuration.
 
