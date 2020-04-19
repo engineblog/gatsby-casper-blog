@@ -2,7 +2,7 @@
 title: "Daily Dev: Fresh Sonic Pi"
 slug: "daily-dev-2"
 cover: "/images/fresh-window.jpg"
-credit: " Pietro De Grandi on Unsplash"
+credit: "Pietro De Grandi on Unsplash"
 date: "2020-04-12"
 author: sharif
 category: "web development"
