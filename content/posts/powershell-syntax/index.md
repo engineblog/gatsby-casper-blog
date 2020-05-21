@@ -66,4 +66,4 @@ Now our customized syntax highlighting color scheme will load each time a new Po
 
 And we're done!
 
-If you feel like showing off your sweet Powershell setup, [send it on over](mailto:whistle@theengine.tech), or share it with me [on Twitter](https://twitter.com/engineBlog)!
+If you feel like showing off your sweet Powershell setup, [send it on over](mailto:whistle@theengine.tech), or share it with me [on Twitter](https://twitter.com/sharifElkassed)!

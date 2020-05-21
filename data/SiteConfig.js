@@ -24,7 +24,7 @@ module.exports = {
   // disqusShortname: "https-vagr9k-github-io-gatsby-advanced-starter", // enables Disqus comments, visually deviates from original Casper theme.
   siteSocialUrls: [
     'https://github.com/engineblog',
-    'https://twitter.com/engineBlog',
+    'https://twitter.com/sharifElkassed',
     'mailto:whistle@theengine.tech',
   ],
   postDefaultCategoryID: 'Learning', // Default category for posts.
@@ -37,7 +37,7 @@ module.exports = {
     },
     {
       label: 'Twitter',
-      url: 'https://twitter.com/engineBlog',
+      url: 'https://twitter.com/sharifElkassed',
       iconClassName: 'fa fa-twitter', // Disabled, see Navigation.jsx
     },
     {

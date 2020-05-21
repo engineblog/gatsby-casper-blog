@@ -62,4 +62,4 @@ If the two steps above do not resolve the issue, you can try the following comma
 
 I hope these suggestions got you where you needed to be!
 
-If not, [let me know on Twitter](https://twitter.com/engineBlog), or [shoot me an email](mailto:whistle@theengine.tech), and I'll do my best to help out.
+If not, [let me know on Twitter](https://twitter.com/sharifElkassed), or [shoot me an email](mailto:whistle@theengine.tech), and I'll do my best to help out.

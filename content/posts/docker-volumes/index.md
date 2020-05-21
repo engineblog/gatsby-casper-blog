@@ -33,7 +33,7 @@ So yes, that's really all there is "solution-wise" to this post:
 
 - You should now be able to refresh the application to see changes, without stopping and restarting the image
 
-If you're having issues with Docker volumes on Windows for a reason other than the installed location, [drop me a line](https://twitter.com/engineBlog), and I'll do my best to help you out!
+If you're having issues with Docker volumes on Windows for a reason other than the installed location, [drop me a line](https://twitter.com/sharifElkassed), and I'll do my best to help you out!
 
 ## Background
 
@@ -59,4 +59,4 @@ Sure, you can use a gaming laptop for development and get along just fine. In my
 
 In my opinion, it's much better to use a general purpose laptop for development, rather than a purpose-built laptop.
 
-If you use a gaming laptop for development, and don't need to take extra steps to circumvent storage issues and battery life, [let me know](https://twitter.com/engineBlog) which one you use!
+If you use a gaming laptop for development, and don't need to take extra steps to circumvent storage issues and battery life, [let me know](https://twitter.com/sharifElkassed) which one you use!

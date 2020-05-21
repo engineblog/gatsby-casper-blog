@@ -1181,4 +1181,4 @@ If the steps in the examples above didn't solve your issue, you may want to try 
 - `sudo apt-get update`
 - Check for and install any updates to your OS
 - Restart computer (yeah, yeah)
-- [Email me for help](mailto:whistle@theengine.tech), or [ask me on Twitter](https://twitter.com/engineBlog)!
+- [Email me for help](mailto:whistle@theengine.tech), or [ask me on Twitter](https://twitter.com/sharifElkassed)!
