@@ -21,6 +21,8 @@ You may have noticed that our API keys are shown in plain text right in our `bot
 
 In this post, we're going to fix that using environment variables.
 
+The steps for this post are also available in a [YouTube video](https://youtu.be/r6yLeR2WJek).
+
 ## Understanding Environment Variables
 
 First, let's answer the question: What are environment variables?
@@ -127,7 +129,14 @@ Here, you should see a section called 'Environment Variables'. Go ahead and clic
 
 Make sure to press 'Save' in the Netlify interface once you are finished adding the variables.
 
-Now, we just need to push our project code to the remote repository so that our Netlify site builds, and syncs up our variables:
+Now, we just need to push our project code to the remote repository so that our Netlify site builds, and syncs up our variables. Before we do that, though, we need to create a `.gitignore` file so that we don't push our entire `node_modules` folder to our remote repository:
+
+- Create a new file in the root of your project directory, and name it `.gitignore`
+- Open the `.gitignore` file, and type `node_modules` in the file
+- Save the file
+- In your terminal, run a `git status` command, and make sure that the `node_modules` folder is **not** listed
+
+Now we can push our code to git:
 
 - `git add .`
 - `git commit -am "added environment variables"`

@@ -17,6 +17,8 @@ In this post, we'll take a look at how to use Node.js, the Twitter API, Netlify,
 
 If you know how to create a Git repository, and have [Node.js](https://nodejs.org/en/) installed, you should be able to follow along just fine.
 
+If you would rather follow along with a video, I've also posted the solution to my [YouTube Channel](https://youtu.be/GdwIjtNZGBw).
+
 ## Create a Twitter developer account
 
 The first thing you're going to want to do is apply for a [Twitter Developer Account](https://developer.twitter.com/en).
@@ -112,6 +114,16 @@ Click the 'Create' button, and we have our app!
 - Give your dev environment a name
 - Select the app that we created in the last step
 - Click 'Complete Setup'
+
+## Set up app permissions
+
+- Click your name in the top-right, next to your profile picture
+- Select 'Apps' from the dropdown
+- Click the 'Details' button for your App
+- Click the 'Permissions' tab at the top of the page
+- Click 'Edit'
+- Under 'Access Permission', select 'Read, write, and Direct Messages'
+- Press 'Save'
 
 ## Obtain API credentials
 
@@ -356,7 +368,7 @@ T.post(
 
 If you run `node bot.js` again, and refresh your Twitter timeline, you should see the tweet quoted!
 
-> IMPORTANT NOTE: Do not push your code to your git remote just yet. We have API keys and tokens exposed as plaintext in our code. We are going to cover securing these credentials in a follow-up post.
+> IMPORTANT NOTE: Do not push your code to your git remote just yet. We have API keys and tokens exposed as plaintext in our code. We are going to cover securing these credentials in a [follow-up post](/twitter-bot-2).
 
 ## Wrapping up
 
