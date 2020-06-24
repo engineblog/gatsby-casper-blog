@@ -1,5 +1,5 @@
 ---
-title: "How to fix strange behavior with localhost and 'gatsby develop'"
+title: "Ways to fix strange behavior with localhost and 'gatsby develop'"
 slug: "gatsby-localhost"
 cover: "/images/strange-behavior.jpg"
 credit: "JR Korpa on Unsplash"

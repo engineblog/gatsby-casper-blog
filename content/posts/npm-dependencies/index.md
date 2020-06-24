@@ -1,5 +1,5 @@
 ---
-title: "What You Need to Know About npm Dependencies"
+title: "What I've Learned About npm Dependencies"
 slug: "npm-dependencies"
 cover: "/images/npm-dependencies.jpg"
 credit: "Patrick Tomasso on Unsplash"

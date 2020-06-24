@@ -1,5 +1,5 @@
 ---
-title: "How To Stop Your npm Installs From Failing"
+title: "How I Stopped My npm Installs From Failing"
 slug: "npm-installs"
 cover: "/images/npm-fail.jpg"
 credit: "Aubrey Rose Odom on Unsplash"

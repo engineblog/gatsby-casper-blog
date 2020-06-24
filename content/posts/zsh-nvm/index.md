@@ -1,5 +1,5 @@
 ---
-title: "How to solve 'zsh:command not found: nvm'"
+title: "Solving 'zsh:command not found: nvm'"
 slug: "nvm-zsh"
 cover: "/images/keyboard-tools.jpg"
 credit: "甜心之枪 Sweetgun on Unsplash"

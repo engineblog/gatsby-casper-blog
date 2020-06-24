@@ -1,5 +1,5 @@
 ---
-title: "Permission Denied! How To Resolve npm Permission Errors"
+title: "Permission Denied! Resolving npm Permission Errors"
 slug: "npm-permission-errors"
 cover: "/images/permission-denied.jpg"
 credit: "Jason Blackeye on Unsplash"

@@ -1,5 +1,5 @@
 ---
-title: "Why Googling Errors Is Not Always The Best Approach"
+title: "Why I Don't Always Google Errors"
 slug: "googling-errors"
 cover: "/images/icecream.jpg"
 credit: "Sarah Kilian on Unsplash"
@@ -71,7 +71,7 @@ import "./AuthorImage.css";
 class AuthorImage extends React.Component {
   render() {
     const {
-      author: { name, image, url }
+      author: { name, image, url },
     } = this.props;
     if (image) {
       return (
