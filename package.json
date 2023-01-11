@@ -32,7 +32,7 @@
     "gatsby-remark-vscode": "^2.0.1",
     "gatsby-source-filesystem": "^2.0.3",
     "gatsby-transformer-json": "^2.1.4",
-    "gatsby-transformer-remark": "^2.6.50",
+    "gatsby-transformer-remark": "^5.25.1",
     "hyvor-talk-react": "^1.0.1",
     "lodash": "^4.17.11",
     "lodash-webpack-plugin": "^0.11.5",
